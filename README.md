@@ -1,4 +1,4 @@
-<p align="center"><img src="/" width="auto" height="auto" alt="Portofolio Preview"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/danisec/assets/refs/heads/main/images/portofolio-dani/portofolio-dani.jpeg" width="auto" height="auto" alt="Portofolio Preview"></p>
 
 # Portofolio Dani Aprilyanto
 
@@ -23,9 +23,9 @@ Follow these steps to set up the project:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/danisec/portofolio-wisnuprawira.git
+   git clone https://github.com/danisec/portofolio.git
 
-   cd portofolio-wisnuprawira
+   cd portofolio
    ```
 
 2. Install the dependencies:

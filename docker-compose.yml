@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portofolio-dani
+    restart: unless-stopped
+    ports:
+      - '3001:3000'
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+    command: ['pnpm', 'next', 'start']

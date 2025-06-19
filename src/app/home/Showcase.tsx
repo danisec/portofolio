@@ -9,6 +9,7 @@ import RocketIcon from '@/components/atoms/svg/Rocket';
 import CloseIcon from '@/components/atoms/svg/Close';
 import GithubIcon from '@/components/atoms/svg/Github';
 import getShowcases from '@/data/showcases';
+import Browser from '@/components/atoms/svg/Browser';
 
 function Showcase() {
   const [isOpen, setIsOpen] = useState<number | null>(null);
@@ -193,6 +194,26 @@ function Showcase() {
                           <GithubIcon $className="w-5 h-5 size-5 dark:text-white" />
                           Github
                         </Link>
+
+                        {showcases[isOpen].liveDemo && (
+                          <Link
+                            target="_blank"
+                            className={clsx(
+                              ['w-full'],
+                              ['flex flex-row'],
+                              ['items-center justify-center'],
+                              ['gap-2'],
+                              ['text-base font-medium lg:text-lg'],
+                              ['rounded-lg'],
+                              ['bg-slate-200 py-3 dark:bg-neutral-800'],
+                              ['hover:bg-slate-300 dark:hover:bg-neutral-800/80'],
+                            )}
+                            href={showcases[isOpen].liveDemo as string}
+                          >
+                            <Browser $className="w-5 h-5 size-5 dark:text-white" />
+                            Live Demo
+                          </Link>
+                        )}
                       </div>
                     </div>
 

@@ -39,7 +39,7 @@ const showcases = (theme: 'light' | 'dark'): ShowcaseItem[] => [
  School. This application aims to provide an effective, ef cient, and objective tool in conducting teacher
  performance appraisals based on predetermined criteria. KinerjaPlus is built using the Laravel 10 framework.`,
     github: 'https://github.com/danisec/kinerjaplus',
-    liveDemo: '/',
+    liveDemo: 'https://kinerjametrik.daniaprilyanto.tech',
   },
   {
     image: '/images/showcase/ereport-erenos.png',
@@ -65,7 +65,7 @@ const showcases = (theme: 'light' | 'dark'): ShowcaseItem[] => [
     description: `E-Report Erenos is a web application built using the Laravel 9 framework. This application provides features
  for managing student data, teachers, subjects, attendance, grades, and nal student report results.`,
     github: 'https://github.com/danisec/ereport-erenos',
-    liveDemo: '/',
+    liveDemo: 'https://ereport-erenos.daniaprilyanto.tech',
   },
   {
     image: '/images/showcase/sim-obe.png',
@@ -90,7 +90,7 @@ const showcases = (theme: 'light' | 'dark'): ShowcaseItem[] => [
     ],
     description: `Sistem Informasi Manajemen Outcome-Based Education (SIM-OBE) adalah platform digital yang dirancang untuk membantu institusi pendidikan dalam menerapkan dan mengelola sistem pendidikan berbasis capaian pembelajaran (OBE). Dengan fitur-fitur yang komprehensif, SIM-OBE memudahkan administrasi akademik, pemetaan capaian pembelajaran, dan analisis hasil belajar mahasiswa secara efisien dan terstruktur.`,
     github: 'https://github.com/danisec/sim-obe',
-    liveDemo: '/',
+    liveDemo: 'https://simobe.daniaprilyanto.tech',
   },
   {
     image: '/images/showcase/newshub.png',
@@ -116,7 +116,7 @@ const showcases = (theme: 'light' | 'dark'): ShowcaseItem[] => [
     ],
     description: `NewsHub is a website that contains up-to-date and up-to-date news and information content.`,
     github: 'https://github.com/danisec/newshub',
-    liveDemo: '/',
+    liveDemo: '',
   },
 ];
 

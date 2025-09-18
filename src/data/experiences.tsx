@@ -12,25 +12,25 @@ interface ExperienceItem {
 }
 
 const experiences: ExperienceItem[] = [
-  {
-    id: 1,
-    institution: 'Danivoid',
-    logo: '/images/logo/danivoid.png',
-    alt: 'Danivoid Logo',
-    title: 'Website Developer',
-    period: 'Jan 2021 — Present',
-    work: 'Freelance',
-    descriptionType: 'list',
-    detail:
-      'As a freelance website developer, I specialize in building dynamic and responsive web applications using React and Laravel. With a strong foundation in both Front-End and Back-End development, I create seamless user experiences and scalable web solutions.',
-    description: [
-      'Developed and optimized web applications for various clients, ensuring high performance and usability.',
-      'Leveraged React for building interactive and modern user interfaces, while using Laravel for efficient backend development and API integration.',
-      'Focused on clean, maintainable code and best practices in security, scalability, and responsiveness.',
-      'Collaborated with clients to understand project requirements, implement custom solutions, and deliver high-quality results.',
-      'Continuously learning and adapting to the latest web technologies to enhance development efficiency and innovation.',
-    ],
-  },
+  // {
+  //   id: 1,
+  //   institution: 'Danivoid',
+  //   logo: '/images/logo/danivoid.png',
+  //   alt: 'Danivoid Logo',
+  //   title: 'Website Developer',
+  //   period: 'Jan 2021 — Present',
+  //   work: 'Freelance',
+  //   descriptionType: 'list',
+  //   detail:
+  //     'As a freelance website developer, I specialize in building dynamic and responsive web applications using React and Laravel. With a strong foundation in both Front-End and Back-End development, I create seamless user experiences and scalable web solutions.',
+  //   description: [
+  //     'Developed and optimized web applications for various clients, ensuring high performance and usability.',
+  //     'Leveraged React for building interactive and modern user interfaces, while using Laravel for efficient backend development and API integration.',
+  //     'Focused on clean, maintainable code and best practices in security, scalability, and responsiveness.',
+  //     'Collaborated with clients to understand project requirements, implement custom solutions, and deliver high-quality results.',
+  //     'Continuously learning and adapting to the latest web technologies to enhance development efficiency and innovation.',
+  //   ],
+  // },
   {
     id: 2,
     institution: 'Sekolah Erenos',

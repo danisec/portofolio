@@ -5,6 +5,7 @@ interface ExperienceItem {
     alt?: string;
     title?: string;
     period?: string;
+    location?: string;
     work?: string;
     descriptionType?: 'paragraph' | 'list';
     description?: string | string[];
@@ -14,21 +15,22 @@ interface ExperienceItem {
 const experiences: ExperienceItem[] = [
     {
         id: 1,
-        institution: 'Danivoid',
-        logo: '/images/logo/danivoid.png',
-        alt: 'Danivoid Logo',
-        title: 'Website Developer',
-        period: 'Jan 2021 — Present',
-        work: 'Freelance',
+        institution: 'BuildWithAngga',
+        logo: '/images/logo/buildwithangga.png',
+        alt: 'BuildWithAngga Logo',
+        title: 'Backend Developer',
+        period: 'Sep 2025 — Feb 2026',
+        location: 'Work From Home',
+        work: 'Internship',
         descriptionType: 'list',
         detail:
-            'As a freelance website developer, I specialize in building dynamic and responsive web applications using React and Laravel. With a strong foundation in both Front-End and Back-End development, I create seamless user experiences and scalable web solutions.',
+            'Contributed to both engineering and product development processes at BuildWithAngga, focusing on building real-world source code projects, creating educational materials, and improving code quality across multiple platforms.',
         description: [
-            'Developed and optimized web applications for various clients, ensuring high performance and usability.',
-            'Leveraged React for building interactive and modern user interfaces, while using Laravel for efficient backend development and API integration.',
-            'Focused on clean, maintainable code and best practices in security, scalability, and responsiveness.',
-            'Collaborated with clients to understand project requirements, implement custom solutions, and deliver high-quality results.',
-            'Continuously learning and adapting to the latest web technologies to enhance development efficiency and innovation.',
+            'Created and published educational articles containing practical tips and insights for developers on the BuildWithAngga website, contributing to platform content quality and user engagement.',
+            'Performed manual Quality Assurance (QA) testing across multiple web pages to ensure functionality, usability, and consistency, helping maintain a smooth user experience.',
+            'Developed and maintained source code projects using Next.js, including real-world case studies such as digital village management systems, focusing on clean architecture and reusable components.',
+            'Designed and built interactive learning materials for the "Vibe Coding Next.js" class, including a hospital dashboard project integrated with modern development approaches.',
+            'Refactored existing website codebase using Laravel to improve code structure, readability, and overall performance, ensuring better maintainability for future development.',
         ],
     },
     {
@@ -38,7 +40,8 @@ const experiences: ExperienceItem[] = [
         alt: 'Sekolah Erenos Logo',
         title: 'Website Developer',
         period: 'Feb 2023 — Aug 2023',
-        work: 'Intern',
+        location: 'Tangerang Selatan',
+        work: 'Internship',
         descriptionType: 'list',
         description: [
             'Developed and maintained the E-Report Erenos web application using Laravel 9 for backend development and Blade for frontend rendering.',
@@ -57,6 +60,7 @@ const experiences: ExperienceItem[] = [
         alt: 'PT Reka Optima Logo',
         title: 'Data Entry',
         period: 'Jul 2019 — Jun 2020',
+        location: 'Tangerang Selatan',
         work: 'Full Time',
         descriptionType: 'list',
         description: [

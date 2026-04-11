@@ -85,6 +85,17 @@ function Experience() {
                   >
                     {experience.work}
                   </span>
+                  {experience.location && (
+                    <p
+                      className={clsx(
+                        ['mt-1'],
+                        ['text-xs lg:text-sm'],
+                        ['text-gray-600 dark:text-gray-400'],
+                      )}
+                    >
+                      {experience.location}
+                    </p>
+                  )}
                 </div>
               </div>
 

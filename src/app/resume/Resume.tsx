@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import clsx from 'clsx';
 import DocumentIcon from '@/components/atoms/svg/Document';
@@ -11,7 +10,7 @@ const PDFViewer = dynamic(() => import('@/utils/PDFViewer/PDFViewer'), {
 });
 
 export default function Resume() {
-  const [pdfUrl] = useState('/resume/resume-dani-aprilyanto.pdf');
+  const pdfUrl = '/resume/resume-dani-aprilyanto.pdf';
 
   return (
     <>

@@ -4,18 +4,16 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-RUN npm install -g pnpm
+COPY package.json package-lock.json ./
 
-COPY package.json pnpm-lock.yaml ./
-
-RUN pnpm install --frozen-lockfile --shamefully-hoist
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN pnpm run build
+RUN npm run build
 
 RUN chmod -R 777 /app
 
 EXPOSE 3000
 
-CMD ["pnpm", "next", "start"]
+CMD ["npm", "run", "start"]

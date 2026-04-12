@@ -13,31 +13,23 @@ export default function Resume() {
   const pdfUrl = '/resume/resume-dani-aprilyanto.pdf';
 
   return (
-    <>
-      <section
-        id="resume"
-        className={clsx(
-          ['py-4 sm:py-6'],
-          ['border-b lg:border-x'],
-          ['border-zinc-200 dark:border-zinc-700'],
-        )}
-      >
-        <div className={clsx(['mt-6'], ['flex flex-col'], ['gap-4'], ['px-4 sm:px-8'])}>
-          <div className={clsx(['flex flex-col'], ['gap-2'])}>
-            <div className={clsx(['flex flex-row'], ['items-center'], ['gap-2'])}>
-              <DocumentIcon $className="w-10 h-10 lg:w-12 lg:h-12 dark:text-white stroke-current" />
-              <h1 className={clsx(['text-xl lg:text-2xl'], ['font-semibold'])}>My Resume</h1>
-            </div>
-            <p className={clsx(['ml-2'], ['text-base'], ['font-normal'])}>
-              View my resume to explore my experience, skills, and professional journey in detail.
-            </p>
+    <section id="resume" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
+      <div className={clsx(['section-shell py-10 lg:py-12'])}>
+        <div className={clsx(['mb-8 flex flex-col gap-3'])}>
+          <p className={clsx(['section-eyebrow'])}>Resume</p>
+          <div className={clsx(['flex flex-row items-center gap-3'])}>
+            <DocumentIcon $className="h-9 w-9 dark:text-white stroke-current" />
+            <h1 className={clsx(['section-title'])}>My Resume</h1>
           </div>
-
-          <div className={clsx(['my-4'])}>
-            <PDFViewer pdfUrl={pdfUrl} />
-          </div>
+          <p className={clsx(['section-description'])}>
+            Explore my full experience, technical depth, and project background in one document.
+          </p>
         </div>
-      </section>
-    </>
+
+        <div className={clsx(['my-4'])}>
+          <PDFViewer pdfUrl={pdfUrl} />
+        </div>
+      </div>
+    </section>
   );
 }

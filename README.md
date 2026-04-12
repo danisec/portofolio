@@ -56,6 +56,42 @@ Follow these steps to set up the project:
 
 - Access the application in your browser at `http://localhost:3000`.
 
+## Docker Compose
+
+1. Copy env template:
+
+```bash
+cp .env.example .env
+```
+
+### Development (Hot Reload)
+
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+- Runs Next.js in dev mode (`npm run dev`) with bind mount.
+- Any local file changes are reflected automatically (hot reload).
+- App URL: `http://localhost:3000`
+
+### Production
+
+```bash
+docker compose up -d --build
+```
+
+- Builds and runs production image (`next build` + `next start`).
+- App URL mengikuti `DOCKER_APP_PORT_PROD` (default `3005`).
+
+### Dynamic env variables
+
+- `DOCKER_APP_PORT_DEV`: host port untuk dev container.
+- `DOCKER_APP_PORT_PROD`: host port untuk prod container.
+- `APP_INTERNAL_PORT`: port aplikasi di dalam container.
+- `DOCKER_CONTAINER_NAME_DEV`: nama container dev.
+- `DOCKER_CONTAINER_NAME_PROD`: nama container prod.
+- `WATCHPACK_POLLING`, `CHOKIDAR_USEPOLLING`: optimasi file watching untuk hot reload di Docker.
+
 ## Project Structure
 
 - **public**: Contains static files.

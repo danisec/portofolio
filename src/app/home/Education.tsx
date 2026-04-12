@@ -5,143 +5,90 @@ import educations from '@/data/educations';
 
 function Education() {
   return (
-    <>
-      <section
-        id="education"
-        className={clsx(
-          ['py-4 sm:py-6'],
-          ['border-b lg:border-x'],
-          ['border-zinc-200 dark:border-zinc-700'],
-        )}
-      >
-        <div className={clsx(['mt-6'], ['flex flex-col'], ['gap-4'], ['px-4 sm:px-8'])}>
-          <div className={clsx(['flex flex-col'], ['gap-2'])}>
-            <div className={clsx(['flex flex-row'], ['items-center'], ['gap-2'])}>
-              <GraduationIcon $className="w-10 h-10 lg:w-12 lg:h-12 dark:text-white fill-current" />
-              <h1 className={clsx(['text-xl lg:text-2xl'], ['font-semibold'])}>My Education</h1>
-            </div>
-            <p className={clsx(['ml-2'], ['text-base'], ['font-normal'])}>My learning journey.</p>
+    <section id="education" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
+      <div className={clsx(['section-shell py-10 lg:py-12'])}>
+        <div className={clsx(['mb-8 flex flex-col gap-3'])}>
+          <p className={clsx(['section-eyebrow'])}>Learning and growth</p>
+          <div className={clsx(['flex items-center gap-3'])}>
+            <GraduationIcon $className="h-9 w-9 dark:text-white fill-current" />
+            <h2 className={clsx(['section-title'])}>Education</h2>
           </div>
+          <p className={clsx(['section-description max-w-3xl'])}>
+            Structured learning that strengthened my engineering fundamentals and frontend
+            delivery capability.
+          </p>
+        </div>
 
-          {educations.map((education) => (
-            <div
+        <div className={clsx(['grid gap-6 lg:grid-cols-2'])}>
+          {educations.map((education, index) => (
+            <article
               key={education.id}
-              className={clsx(
-                ['my-4'],
-                ['px-4 pt-6 pb-0 sm:py-6'],
-                ['rounded-xl'],
-                ['bg-slate-200 dark:bg-neutral-900'],
-              )}
+              className={clsx(['card-surface flex h-full flex-col p-5 lg:p-6'])}
               data-aos="fade-up"
+              data-aos-delay={index * 60}
             >
-              <div className={clsx(['flex flex-row'], ['items-center justify-between'], ['gap-2'])}>
-                <div className={clsx(['flex flex-row'], ['items-center'], ['gap-4'])}>
+              <div className={clsx(['flex flex-wrap items-start justify-between gap-4'])}>
+                <div className={clsx(['flex items-start gap-3'])}>
                   <div
                     className={clsx(
-                      ['p-3'],
-                      ['h-auto lg:h-16'],
-                      ['w-20 lg:w-16'],
-                      ['rounded-xl'],
-                      ['bg-slate-100 dark:bg-neutral-800'],
+                      ['flex h-14 w-14 shrink-0 items-center justify-center rounded-xl'],
+                      ['border border-slate-200 bg-white p-2'],
+                      ['dark:border-neutral-700 dark:bg-neutral-800'],
                     )}
                   >
                     <Image
-                      src={education.logo ?? 'Logo'}
-                      alt={education.alt ?? 'Logo'}
-                      width={500}
-                      height={500}
-                      className={clsx(['h-full'], ['w-full'], ['object-cover'])}
+                      src={education.logo}
+                      alt={education.alt}
+                      width={48}
+                      height={48}
+                      className={clsx(['h-full w-full object-contain'])}
                     />
                   </div>
 
-                  <div>
-                    <p className={clsx(['text-base lg:text-lg'], ['font-semibold'])}>
-                      {education.institution}
+                  <div className={clsx(['space-y-1'])}>
+                    <h3 className={clsx(['text-lg font-semibold lg:text-xl'])}>{education.institution}</h3>
+                    <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
+                      {education.title} · {education.studyType}
                     </p>
-                    <span
-                      className={clsx(
-                        ['text-sm lg:text-base'],
-                        ['text-gray-800 dark:text-gray-300'],
-                        ['font-normal'],
-                      )}
-                    >
-                      {education.title}
-                    </span>
                   </div>
                 </div>
 
-                <div>
-                  <p className={clsx(['text-base lg:text-base'], ['font-semibold'])}>
-                    {education.period}
-                  </p>
-                  <span
-                    className={clsx(
-                      ['text-sm lg:text-base'],
-                      ['text-gray-800 dark:text-gray-300'],
-                      ['font-normal'],
-                    )}
-                  >
-                    {education.study}
-                  </span>
-                </div>
+                <span
+                  className={clsx(
+                    ['rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold'],
+                    ['text-slate-700 dark:border-neutral-700 dark:text-neutral-300'],
+                  )}
+                >
+                  {education.period}
+                </span>
               </div>
+
+              <p className={clsx(['mt-4 text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}>
+                {education.summary}
+              </p>
+
+              <ul className={clsx(['mt-4 space-y-2'])}>
+                {education.focusAreas.map((focusArea) => (
+                  <li key={focusArea} className={clsx(['flex items-start gap-2 text-sm'])}>
+                    <span className={clsx(['mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500'])} />
+                    <span>{focusArea}</span>
+                  </li>
+                ))}
+              </ul>
 
               <div
                 className={clsx(
-                  ['-mx-4 mt-8'],
-                  ['px-4 py-6 sm:mx-0 sm:px-4'],
-                  ['rounded-xl'],
-                  ['border border-slate-300 dark:border-neutral-800'],
-                  ['bg-slate-100 dark:bg-neutral-950'],
+                  ['mt-5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium'],
+                  ['text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'],
                 )}
               >
-                {education.descriptionType === 'paragraph' ? (
-                  <p className={clsx(['text-base'], ['font-normal'], ['leading-relaxed'])}>
-                    {education.description}
-                  </p>
-                ) : (
-                  <>
-                    <p className={clsx(['text-base'], ['font-normal'], ['leading-relaxed'])}>
-                      {education.detail ?? ''}
-                    </p>
-                    <p
-                      className={clsx(
-                        ['mt-6'],
-                        ['text-base'],
-                        ['font-semibold'],
-                        ['leading-relaxed'],
-                      )}
-                    >
-                      Key Skills:
-                    </p>
-                    <ul className={clsx(['space-y-2'], ['pt-2'])}>
-                      {Array.isArray(education.description) ? (
-                        education.description.map((item, index) => (
-                          <li
-                            key={index}
-                            className={clsx(
-                              ['flex'],
-                              ['items-start'],
-                              ["before:mr-2 before:text-gray-500 before:content-['-']"],
-                            )}
-                          >
-                            {item}
-                          </li>
-                        ))
-                      ) : (
-                        <p className={clsx(['text-base'], ['font-normal'], ['leading-relaxed'])}>
-                          {education.description}
-                        </p>
-                      )}
-                    </ul>
-                  </>
-                )}
+                Outcome: {education.outcome}
               </div>
-            </div>
+            </article>
           ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

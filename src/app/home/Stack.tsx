@@ -10,80 +10,79 @@ function Stack() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Avoid theme flicker
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // If not mounted, return null
+  const techStacks = mounted ? getTechStacks(theme as 'light' | 'dark') : [];
+  const groupedStacks = techStacks.reduce<Record<string, typeof techStacks>>((acc, stack) => {
+    if (!acc[stack.category]) {
+      acc[stack.category] = [];
+    }
+
+    acc[stack.category].push(stack);
+    return acc;
+  }, {});
+
   if (!mounted) return null;
 
-  const techStacks = getTechStacks(theme as 'light' | 'dark');
-
   return (
-    <>
-      <div
-        id="my-stack"
-        className={clsx(
-          ['py-4 sm:py-6'],
-          ['border-b lg:border-x'],
-          ['border-zinc-200 dark:border-zinc-700'],
-        )}
-      >
-        <div className={clsx(['mt-6'], ['flex flex-col'], ['gap-4'], ['px-4 sm:px-8'])}>
-          <div className={clsx(['flex flex-col'], ['gap-2'])}>
-            <div className={clsx(['flex flex-row'], ['items-center'], ['gap-2'])}>
-              <CommandIcon $className="w-10 h-10 lg:w-12 lg:h-12 dark:text-white stroke-current" />
-              <h1 className={clsx(['text-2xl'], ['font-semibold'])}>My Stack</h1>
-            </div>
-            <p className={clsx(['ml-2'], ['text-base'], ['font-normal'])}>
-              Commited and adaptable to new technologies with expertise in them.
-            </p>
+    <section id="my-stack" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
+      <div className={clsx(['section-shell py-10 lg:py-12'])}>
+        <div className={clsx(['mb-8 flex flex-col gap-3'])}>
+          <p className={clsx(['section-eyebrow'])}>Tools I use</p>
+          <div className={clsx(['flex items-center gap-3'])}>
+            <CommandIcon $className="h-9 w-9 dark:text-white stroke-current" />
+            <h2 className={clsx(['section-title'])}>Technical Stack</h2>
           </div>
+          <p className={clsx(['section-description max-w-3xl'])}>
+            A practical toolkit I use to ship full-stack products with stable quality from frontend
+            to deployment.
+          </p>
+        </div>
 
-          <div
-            className={clsx(['my-4'], ['flex flex-wrap'], ['gap-4 sm:gap-8'], ['py-6'], ['w-full'])}
-          >
-            {techStacks.map((stack, index) => (
-              <div
-                key={index}
-                className={clsx(
-                  ['flex w-full flex-row'],
-                  ['items-center'],
-                  ['gap-4'],
-                  ['p-4'],
-                  ['rounded-xl'],
-                  ['border border-slate-300 dark:border-neutral-800'],
-                  ['ms:w-52 sm:w-62 md:w-80 lg:w-3/10'],
-                  ['bg-slate-200 dark:bg-neutral-900'],
-                )}
-                data-aos="fade-down"
-                data-aos-delay={index * 20}
-              >
-                <div
-                  className={clsx(
-                    ['flex'],
-                    ['items-center justify-center'],
-                    ['rounded-lg'],
-                    ['p-2'],
-                    ['bg-slate-100 dark:bg-neutral-800'],
-                  )}
-                >
-                  {stack.icon}
-                </div>
-
-                <div>
-                  <h1 className={clsx(['text-lg'], ['font-semibold'])}>{stack.name}</h1>
-                  <p className={clsx(['text-sm sm:text-sm'], ['font-normal'])}>
-                    {stack.description}
-                  </p>
-                </div>
+        <div className={clsx(['space-y-8'])}>
+          {Object.entries(groupedStacks).map(([category, items], categoryIndex) => (
+            <div key={category} className={clsx(['space-y-4'])}>
+              <h3 className={clsx(['text-lg font-semibold'])}>{category}</h3>
+              <div className={clsx(['grid gap-4 md:grid-cols-2 xl:grid-cols-3'])}>
+                {items.map((stack, index) => (
+                  <article
+                    key={stack.id}
+                    className={clsx(['card-surface flex h-full flex-col gap-3 p-4'])}
+                    data-aos="fade-up"
+                    data-aos-delay={(categoryIndex * 3 + index) * 40}
+                  >
+                    <div className={clsx(['flex items-center gap-3'])}>
+                      <div
+                        className={clsx(
+                          ['flex items-center justify-center rounded-lg bg-white p-2'],
+                          ['dark:bg-neutral-800'],
+                        )}
+                      >
+                        {stack.icon}
+                      </div>
+                      <p className={clsx(['text-base font-semibold'])}>{stack.name}</p>
+                    </div>
+                    <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
+                      {stack.description}
+                    </p>
+                    <p
+                      className={clsx(
+                        ['rounded-lg bg-slate-100 px-3 py-2 text-sm'],
+                        ['text-slate-700 dark:bg-neutral-800 dark:text-neutral-200'],
+                      )}
+                    >
+                      Outcome: {stack.outcome}
+                    </p>
+                  </article>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-    </>
+    </section>
   );
 }
 

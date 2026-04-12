@@ -4,22 +4,13 @@ function Footer() {
   const getYear = new Date().getFullYear();
 
   return (
-    <>
-      <div
-        id="footer"
-        className={clsx(
-          ['py-2 sm:py-4'],
-          ['border-t', 'lg:border-x', 'lg:border-t-0'],
-          ['border-zinc-200 dark:border-zinc-700'],
-        )}
-      >
-        <div className={clsx(['flex flex-col'], ['items-start'], ['gap-4'], ['px-4 sm:px-8'])}>
-          <p className={clsx(['text-sm'], ['text-gray-600 dark:text-gray-400'], ['font-medium'])}>
-            Copyright &copy; {getYear} Dani Aprilyanto
-          </p>
-        </div>
+    <div id="footer" className={clsx(['border-t border-zinc-200 py-4 dark:border-zinc-800'])}>
+      <div className={clsx(['section-shell'])}>
+        <p className={clsx(['text-sm font-medium text-slate-600 dark:text-neutral-400'])}>
+          Copyright &copy; {getYear} Dani Aprilyanto
+        </p>
       </div>
-    </>
+    </div>
   );
 }
 

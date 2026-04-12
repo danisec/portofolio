@@ -5,146 +5,108 @@ import experiences from '@/data/experiences';
 
 function Experience() {
   return (
-    <>
-      <section
-        id="experience"
-        className={clsx(
-          ['py-4 sm:py-6'],
-          ['border-b lg:border-x'],
-          ['border-zinc-200 dark:border-zinc-700'],
-          ['overflow-x-hidden'],
-        )}
-      >
-        <div className={clsx(['mt-6'], ['flex flex-col'], ['gap-4'], ['px-4 sm:px-8'])}>
-          <div className={clsx(['flex flex-col'], ['gap-2'])}>
-            <div className={clsx(['flex flex-row'], ['items-center'], ['gap-2'])}>
-              <BriefcaseIcon $className="w-10 h-10 lg:w-12 lg:h-12 dark:text-white stroke-current" />
-              <h1 className={clsx(['text-xl lg:text-2xl'], ['font-semibold'])}>My Experience</h1>
-            </div>
-            <p className={clsx(['ml-2'], ['text-base'], ['font-normal'])}>
-              A journey through my professional growth and achievements.
-            </p>
+    <section id="experience" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
+      <div className={clsx(['section-shell py-10 lg:py-12'])}>
+        <div className={clsx(['mb-8 flex flex-col gap-3'])}>
+          <p className={clsx(['section-eyebrow'])}>Proof of execution</p>
+          <div className={clsx(['flex flex-row items-center gap-3'])}>
+            <BriefcaseIcon $className="h-9 w-9 dark:text-white stroke-current" />
+            <h2 className={clsx(['section-title'])}>Professional Experience</h2>
           </div>
+          <p className={clsx(['section-description max-w-3xl'])}>
+            Roles where I shipped product features, improved engineering quality, and supported
+            real-world users.
+          </p>
+        </div>
 
-          {experiences.map((experience) => (
-            <div
-              key={experience.id}
-              className={clsx(
-                ['my-4'],
-                ['rounded-xl'],
-                ['px-4 pt-6 pb-0 sm:py-6'],
-                ['bg-slate-200 dark:bg-neutral-900'],
-              )}
-              data-aos="fade-left"
-            >
-              <div className={clsx(['flex flex-row'], ['items-center justify-between'], ['gap-2'])}>
-                <div className={clsx(['flex flex-row'], ['items-center'], ['gap-4'])}>
-                  <div
-                    className={clsx(
-                      ['h-auto w-20 lg:h-16 lg:w-16'],
-                      ['p-3'],
-                      ['rounded-xl'],
-                      ['bg-slate-100 dark:bg-neutral-800'],
-                    )}
-                  >
-                    <Image
-                      src={experience.logo ?? 'Logo'}
-                      alt={experience.alt ?? 'Logo'}
-                      width={500}
-                      height={500}
-                      className={clsx(['h-full w-full'], ['object-contain'])}
-                    />
-                  </div>
+        <div className={clsx(['relative pl-0 lg:pl-8'])}>
+          <div
+            className={clsx(
+              ['absolute top-0 left-3 hidden h-full w-px lg:block'],
+              ['bg-slate-300 dark:bg-neutral-700'],
+            )}
+            aria-hidden="true"
+          />
 
-                  <div>
-                    <p className={clsx(['text-base lg:text-lg'], ['font-semibold'])}>
-                      {experience.institution}
-                    </p>
-                    <span
+          <div className={clsx(['space-y-6'])}>
+            {experiences.map((experience, index) => (
+              <article
+                key={experience.id}
+                className={clsx(
+                  ['relative card-surface overflow-hidden p-5 lg:p-6'],
+                  ['lg:before:absolute lg:before:top-7 lg:before:-left-[1.9rem] lg:before:h-3 lg:before:w-3'],
+                  ['lg:before:rounded-full lg:before:bg-blue-600 dark:lg:before:bg-blue-400'],
+                )}
+                data-aos="fade-up"
+                data-aos-delay={index * 60}
+              >
+                <div className={clsx(['flex flex-wrap items-start justify-between gap-4'])}>
+                  <div className={clsx(['flex min-w-0 items-start gap-3'])}>
+                    <div
                       className={clsx(
-                        ['text-sm lg:text-base'],
-                        ['text-gray-800 dark:text-gray-300'],
-                        ['font-normal'],
+                        ['flex h-14 w-14 shrink-0 items-center justify-center rounded-xl'],
+                        ['border border-slate-200 bg-white p-2'],
+                        ['dark:border-neutral-700 dark:bg-neutral-800'],
                       )}
                     >
-                      {experience.title}
-                    </span>
+                      <Image
+                        src={experience.logo}
+                        alt={experience.alt}
+                        width={48}
+                        height={48}
+                        className={clsx(['h-full w-full object-contain'])}
+                      />
+                    </div>
+                    <div className={clsx(['min-w-0 space-y-1'])}>
+                      <h3 className={clsx(['text-lg font-semibold lg:text-xl'])}>
+                        {experience.institution}
+                      </h3>
+                      <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
+                        {experience.title} · {experience.workType}
+                      </p>
+                      <p className={clsx(['text-xs text-slate-500 dark:text-neutral-400'])}>
+                        {experience.location}
+                      </p>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <p className={clsx(['text-base lg:text-base'], ['font-semibold'])}>
-                    {experience.period}
-                  </p>
                   <span
                     className={clsx(
-                      ['text-sm lg:text-base'],
-                      ['text-gray-800 dark:text-gray-300'],
-                      ['font-normal'],
+                      ['rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold'],
+                      ['text-slate-700 dark:border-neutral-700 dark:text-neutral-300'],
                     )}
                   >
-                    {experience.work}
+                    {experience.period}
                   </span>
-                  {experience.location && (
-                    <p
-                      className={clsx(
-                        ['mt-1'],
-                        ['text-xs lg:text-sm'],
-                        ['text-gray-600 dark:text-gray-400'],
-                      )}
-                    >
-                      {experience.location}
-                    </p>
-                  )}
                 </div>
-              </div>
 
-              <div
-                className={clsx(
-                  ['-mx-4 mt-8'],
-                  ['px-4 py-6 sm:mx-0 sm:px-4'],
-                  ['rounded-xl'],
-                  ['border border-slate-300'],
-                  ['bg-slate-100 dark:border-neutral-800 dark:bg-neutral-950'],
-                )}
-              >
-                {experience.descriptionType === 'paragraph' ? (
-                  <p className={clsx(['text-base'], ['font-normal'], ['leading-relaxed'])}>
-                    {experience.description}
-                  </p>
-                ) : (
-                  <>
-                    <p className={clsx(['text-base'], ['font-normal'], ['leading-relaxed'])}>
-                      {experience.detail ?? ''}
-                    </p>
+                <p className={clsx(['mt-4 text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}>
+                  {experience.summary}
+                </p>
 
-                    <ul className={clsx(['space-y-2'], ['pt-2'])}>
-                      {Array.isArray(experience.description) ? (
-                        experience.description.map((item, index) => (
-                          <li
-                            key={index}
-                            className={clsx(
-                              ['flex items-start'],
-                              ["before:mr-2 before:text-gray-500 before:content-['-']"],
-                            )}
-                          >
-                            {item}
-                          </li>
-                        ))
-                      ) : (
-                        <p className={clsx(['text-base'], ['font-normal'], ['leading-relaxed'])}>
-                          {experience.description}
-                        </p>
-                      )}
-                    </ul>
-                  </>
-                )}
-              </div>
-            </div>
-          ))}
+                <div
+                  className={clsx(
+                    ['mt-4 rounded-xl border border-blue-200 bg-blue-50 px-3 py-2'],
+                    ['text-sm font-medium text-blue-800 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-200'],
+                  )}
+                >
+                  Impact: {experience.impact}
+                </div>
+
+                <ul className={clsx(['mt-4 space-y-2'])}>
+                  {experience.highlights.map((highlight) => (
+                    <li key={highlight} className={clsx(['flex items-start gap-2 text-sm'])}>
+                      <span className={clsx(['mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500'])} />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

@@ -67,25 +67,43 @@ function TechStack() {
   ];
 
   return (
-    <>
-      <div className={clsx(['relative'], ['w-full'], ['overflow-hidden'])}>
-        <div className={clsx(['top-0 bottom-0 left-0'], ['z-50'], ['w-24'])}>
-          <div className={clsx(['animate-scroll'], ['flex'], ['gap-6'], ['w-max lg:min-w-max'])}>
-            {[...techStacks, ...techStacks].map((stack, index) => (
-              <div
-                key={index}
-                className={clsx(['flex flex-row'], ['items-center'], ['shrink-0'], ['gap-2'])}
-              >
-                <div>{stack.icon}</div>
-                <span className={clsx(['ms:text-base text-sm'], ['font-semibold'])}>
-                  {stack.name}
-                </span>
-              </div>
-            ))}
-          </div>
+    <div
+      className={clsx(
+        ['relative overflow-hidden rounded-xl border border-slate-200 px-4 py-3'],
+        ['bg-slate-50 dark:border-neutral-800 dark:bg-neutral-900'],
+      )}
+      aria-label="Core technology stack"
+    >
+      <p className={clsx(['mb-3 text-xs font-semibold tracking-wide text-slate-500 uppercase'])}>
+        Core toolkit
+      </p>
+      <div className={clsx(['relative overflow-hidden'])}>
+        <div className={clsx(['animate-scroll motion-reduce:animate-none'], ['flex w-max gap-6'])}>
+          {[...techStacks, ...techStacks].map((stack, index) => (
+            <div
+              key={`${stack.name}-${index}`}
+              className={clsx(['flex shrink-0 items-center gap-2 text-sm font-semibold'])}
+              aria-hidden={index >= techStacks.length}
+            >
+              <div>{stack.icon}</div>
+              <span>{stack.name}</span>
+            </div>
+          ))}
         </div>
+        <div
+          className={clsx(
+            ['pointer-events-none absolute inset-y-0 left-0 w-12'],
+            ['bg-gradient-to-r from-slate-50 to-transparent dark:from-neutral-900'],
+          )}
+        />
+        <div
+          className={clsx(
+            ['pointer-events-none absolute inset-y-0 right-0 w-12'],
+            ['bg-gradient-to-l from-slate-50 to-transparent dark:from-neutral-900'],
+          )}
+        />
       </div>
-    </>
+    </div>
   );
 }
 

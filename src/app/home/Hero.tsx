@@ -1,109 +1,77 @@
 import Image from 'next/image';
 import clsx from 'clsx';
-import LinkAside from '@/components/molecules/LinkAside';
 import ButtonHero from './components/ButtonHero';
 import TechStack from './components/TechStack';
 import data from '@/data/hero';
 
 export default function Hero() {
   return (
-    <section
-      id="hero"
-      className={clsx(
-        ['py-4 sm:py-6'],
-        ['border-b lg:border-x'],
-        ['border-zinc-200 dark:border-zinc-700'],
-      )}
-    >
-      <div className={clsx(['flex flex-col'], ['gap-4'], ['mt-6 px-4 sm:px-8'])}>
+    <section id="hero" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
+      <div className={clsx(['section-shell py-10 lg:py-14'])}>
         <div
-          className={clsx(['flex flex-row'], ['items-center lg:items-start'], ['gap-4 md:gap-8'])}
+          className={clsx(['grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]'], ['items-start'])}
         >
           <div
             className={clsx(
-              ['relative aspect-square'],
+              ['order-2 space-y-5 lg:order-1'],
+              ['max-w-3xl'],
+            )}
+            data-aos="fade-up"
+            data-aos-delay="30"
+          >
+            <p className={clsx(['section-eyebrow'])}>Available for full-time and freelance projects</p>
+            <h1 className={clsx(['text-3xl font-semibold text-balance md:text-4xl lg:text-5xl'])}>
+              {data.headline}
+            </h1>
+            <p className={clsx(['section-description text-lg'])}>{data.subheadline}</p>
+
+            <ul className={clsx(['space-y-2'])}>
+              {data.proofPoints.map((item) => (
+                <li key={item} className={clsx(['flex items-start gap-2 text-sm lg:text-base'])}>
+                  <span
+                    className={clsx(['mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400'])}
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <ButtonHero />
+          </div>
+
+          <div
+            className={clsx(
+              ['order-1 card-surface lg:order-2'],
               ['overflow-hidden'],
-              ['w-6/12 max-w-lg'],
-              ['rounded-lg'],
-              ['bg-slate-100'],
+              ['p-4 sm:p-5'],
+              ['w-full max-w-sm mx-auto lg:justify-self-end'],
             )}
             data-aos="zoom-in"
             data-aos-delay="5"
           >
-            <Image
-              src={data.image}
-              alt={data.alt ?? 'Photo Dani Aprilyanto'}
-              width={500}
-              height={500}
-              priority={true}
-              quality={100}
-              className={clsx(['relative'], ['pt-4'], ['h-full'], ['w-full'], ['object-cover'])}
-            />
-          </div>
-
-          <div className={clsx(['flex flex-col'], ['justify-center'], ['w-full'])}>
-            <h2
-              className={clsx(['flex flex-row'], ['gap-2'], ['text-base font-normal md:text-lg'])}
-              data-aos="fade-up"
-              data-aos-delay="20"
-            >
-              <span className={clsx(['animate-wave'])}>👋</span>
-              <span>Hello I Am</span>
-            </h2>
-            <h4
-              className={clsx(
-                ['mt-2'],
-                ['ms:text-3xl sx:text-2xl text-xl md:text-4xl'],
-                ['font-semibold'],
-              )}
-              data-aos="fade-up"
-              data-aos-delay="40"
-            >
-              {data.name}
-            </h4>
-
-            <div
-              className={clsx(['mt-4'], ['flex flex-row'], ['gap-3'], ['lg:hidden'])}
-              data-aos="fade-up"
-              data-aos-delay="60"
-            >
-              <LinkAside />
+            <div className={clsx(['relative aspect-square overflow-hidden rounded-xl bg-slate-100'])}>
+              <Image
+                src={data.image}
+                alt={data.alt}
+                width={500}
+                height={500}
+                priority={true}
+                quality={95}
+                className={clsx(['h-full w-full object-cover object-top pt-2'])}
+              />
             </div>
-
-            <p
-              className={clsx(
-                ['mt-4'],
-                ['text-base lg:text-lg'],
-                ['font-normal'],
-                ['hidden lg:block'],
-              )}
-              data-aos="fade-up"
-              data-aos-delay="80"
-            >
-              {data.description}
-            </p>
-
-            <div className={clsx(['hidden lg:block'])} data-aos="fade-up" data-aos-delay="100">
-              <ButtonHero />
+            <div className={clsx(['mt-4 space-y-1'])}>
+              <p className={clsx(['text-lg font-semibold'])}>{data.name}</p>
+              <p className={clsx(['text-sm text-slate-600 dark:text-neutral-300'])}>{data.role}</p>
+              <p className={clsx(['text-sm text-slate-500 dark:text-neutral-400'])}>
+                <span className={clsx(['animate-wave'])}>👋</span> Based in Tangerang Selatan, Indonesia
+              </p>
             </div>
           </div>
         </div>
 
-        <div
-          className={clsx(['block lg:hidden'], ['leading-relaxed'])}
-          data-aos="fade-up"
-          data-aos-delay="120"
-        >
-          <p className={clsx(['mt-4'], ['text-base lg:text-lg'], ['font-normal'])}>
-            {data.description}
-          </p>
-        </div>
-
-        <div className={clsx(['block lg:hidden'])} data-aos="fade-up" data-aos-delay="100">
-          <ButtonHero />
-        </div>
-
-        <div className={clsx(['py-4'])}>
+        <div className={clsx(['mt-8'])} data-aos="fade-up" data-aos-delay="120">
           <TechStack />
         </div>
       </div>

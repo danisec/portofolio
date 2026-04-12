@@ -1,122 +1,90 @@
-import LaravelStack from '@/components/atoms/svg/LaravelStack';
-import ReactStack from '@/components/atoms/svg/ReactStack';
-import MysqlStack from '@/components/atoms/svg/MysqlStack';
-import TailwindcssStack from '@/components/atoms/svg/TailwindcssStack';
-
-interface ShowcaseItem {
-  image?: string;
-  title?: string;
-  alt?: string;
-  icons?: { id: string; icon: React.ReactNode; name: string }[];
-  description?: string;
-  github?: string;
+export interface ShowcaseItem {
+  id: string;
+  image: string;
+  title: string;
+  alt: string;
+  role: string;
+  stack: string[];
+  summary: string;
+  outcome: string;
+  problem: string;
+  contribution: string;
+  result: string;
+  github: string;
   liveDemo?: string;
 }
 
-const showcases = (theme: 'light' | 'dark'): ShowcaseItem[] => [
+const showcases: ShowcaseItem[] = [
   {
+    id: 'kinerjaplus',
     image: '/images/showcase/kinerjaplus.png',
-    title: 'Kinerjaplus',
-    alt: 'Kinerjaplus',
-    icons: [
-      {
-        id: 'laravel',
-        icon: <LaravelStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'Laravel',
-      },
-      {
-        id: 'mysql',
-        icon: <MysqlStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'MySQL',
-      },
-      {
-        id: 'tailwindcss',
-        icon: <TailwindcssStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'Tailwind CSS',
-      },
-    ],
-    description: `KinerjaPlus is a web application designed to facilitate the teacher performance appraisal process at Erenos
- School. This application aims to provide an effective, ef cient, and objective tool in conducting teacher
- performance appraisals based on predetermined criteria. KinerjaPlus is built using the Laravel 10 framework.`,
+    title: 'KinerjaPlus',
+    alt: 'KinerjaPlus teacher performance platform',
+    role: 'Full-Stack Web Developer',
+    stack: ['Laravel', 'MySQL', 'Tailwind CSS'],
+    summary:
+      'Teacher performance appraisal platform for Erenos School with role-based workflows and scoring criteria.',
+    outcome: 'Made evaluation process more structured and easier to monitor across stakeholders.',
+    problem: 'School teams needed a more objective and consistent way to run teacher performance evaluations.',
+    contribution:
+      'Designed the core app architecture, built modules for criteria management and scoring flow, and delivered responsive dashboard pages.',
+    result:
+      'Reduced manual administration effort and provided clearer appraisal records for decision making.',
     github: 'https://github.com/danisec/kinerjaplus',
-    liveDemo: 'https://kinerjametrik.daniaprilyanto.tech',
+    liveDemo: 'https://kinerjametrik.daniaprilyanto.my.id',
   },
   {
+    id: 'ereport',
     image: '/images/showcase/ereport-erenos.png',
-    title: 'E-report Erenos',
-    alt: 'E-report Erenos',
-    icons: [
-      {
-        id: 'laravel',
-        icon: <LaravelStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'Laravel',
-      },
-      {
-        id: 'mysql',
-        icon: <MysqlStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'MySQL',
-      },
-      {
-        id: 'tailwindcss',
-        icon: <TailwindcssStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'Tailwind CSS',
-      },
-    ],
-    description: `E-Report Erenos is a web application built using the Laravel 9 framework. This application provides features
- for managing student data, teachers, subjects, attendance, grades, and nal student report results.`,
+    title: 'E-Report Erenos',
+    alt: 'E-Report Erenos school administration app',
+    role: 'Web Developer Intern',
+    stack: ['Laravel', 'MySQL', 'Tailwind CSS'],
+    summary:
+      'Academic reporting system covering student records, attendance, grades, and automated report generation.',
+    outcome: 'Improved day-to-day operations for teachers and administrative staff.',
+    problem: 'Academic data and final reports were heavily manual and prone to inconsistency.',
+    contribution:
+      'Implemented backend features, dashboard pages, role-based access control, and data structure for report generation.',
+    result:
+      'Enabled staff to manage records in one place and speed up report preparation cycles.',
     github: 'https://github.com/danisec/ereport-erenos',
-    liveDemo: 'https://ereport-erenos.daniaprilyanto.tech',
+    liveDemo: 'https://ereport-erenos.daniaprilyanto.my.id',
   },
   {
+    id: 'sim-obe',
     image: '/images/showcase/sim-obe.png',
-    title: 'Sistem Informasi Manajemen Outcome-Based Education',
-    alt: 'Sistem Informasi Manajemen Outcome-Based Education',
-    icons: [
-      {
-        id: 'laravel',
-        icon: <LaravelStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'Laravel',
-      },
-      {
-        id: 'mysql',
-        icon: <MysqlStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'MySQL',
-      },
-      {
-        id: 'tailwindcss',
-        icon: <TailwindcssStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'Tailwind CSS',
-      },
-    ],
-    description: `Sistem Informasi Manajemen Outcome-Based Education (SIM-OBE) adalah platform digital yang dirancang untuk membantu institusi pendidikan dalam menerapkan dan mengelola sistem pendidikan berbasis capaian pembelajaran (OBE). Dengan fitur-fitur yang komprehensif, SIM-OBE memudahkan administrasi akademik, pemetaan capaian pembelajaran, dan analisis hasil belajar mahasiswa secara efisien dan terstruktur.`,
+    title: 'SIM-OBE',
+    alt: 'Outcome-based education management platform',
+    role: 'Full-Stack Developer',
+    stack: ['Laravel', 'MySQL', 'Tailwind CSS'],
+    summary:
+      'Outcome-Based Education management platform for curriculum mapping and learning outcome analytics.',
+    outcome: 'Helped stakeholders monitor OBE adoption through structured digital workflows.',
+    problem:
+      'Educational teams needed a centralized system to track learning outcomes and align course plans.',
+    contribution:
+      'Built modules for OBE mapping, administrative workflow, and performance tracking across academic entities.',
+    result:
+      'Created a more transparent process for managing and evaluating learning outcome implementation.',
     github: 'https://github.com/danisec/sim-obe',
-    liveDemo: 'https://simobe.daniaprilyanto.tech',
+    liveDemo: 'https://simobe.daniaprilyanto.my.id',
   },
   {
+    id: 'newshub',
     image: '/images/showcase/newshub.png',
     title: 'NewsHub',
-    alt: 'NewsHub',
-    icons: [
-      {
-        id: 'react',
-        icon: (
-          <ReactStack
-            $className="w-6 h-6"
-            $fillColor={theme === 'dark' ? '#ffffff' : '#000000'}
-            $strokeColor={theme === 'dark' ? '#ffffff' : '#000000'}
-          />
-        ),
-        name: 'React',
-      },
-      {
-        id: 'tailwindcss',
-        icon: <TailwindcssStack $className="w-6 h-6 dark:text-white fill-current" />,
-        name: 'Tailwind CSS',
-      },
-    ],
-    description: `NewsHub is a website that contains up-to-date and up-to-date news and information content.`,
+    alt: 'NewsHub web application',
+    role: 'Frontend Developer',
+    stack: ['React', 'Tailwind CSS'],
+    summary:
+      'Frontend news portal interface focused on responsive layout and efficient content browsing.',
+    outcome: 'Delivered a clean and fast reading experience for headline discovery.',
+    problem: 'Needed a simple but scalable UI to display frequently updated news content.',
+    contribution:
+      'Designed reusable components, integrated content presentation flow, and tuned responsive behavior.',
+    result: 'Provided a lightweight UI architecture suitable for rapid content updates.',
     github: 'https://github.com/danisec/newshub',
-    liveDemo: '',
   },
 ];
 

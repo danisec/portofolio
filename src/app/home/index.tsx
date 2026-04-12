@@ -10,20 +10,18 @@ import Footer from '@/components/organisms/Footer';
 
 export default function HomePage() {
   return (
-    <>
-      <div className={clsx(['mx-auto'], ['w-full'])}>
-        <Header />
+    <div className={clsx(['mx-auto w-full'])}>
+      <Header />
 
-        <main className={clsx(['dark:bg-neutral-950'])}>
-          <Hero />
-          <Experience />
-          <Education />
-          <Showcase />
-          <Stack />
-          <Services />
-          <Footer />
-        </main>
-      </div>
-    </>
+      <main className={clsx(['dark:bg-neutral-950'])}>
+        <Hero />
+        <Experience />
+        <Education />
+        <Showcase />
+        <Stack />
+        <Services />
+        <Footer />
+      </main>
+    </div>
   );
 }

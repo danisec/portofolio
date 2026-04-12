@@ -6,34 +6,32 @@ import Aside from '@/components/organisms/Aside';
 
 function page() {
   return (
-    <>
-      <div
-        className={clsx(
-          ['grid xl:grid-cols-12'],
-          ['row-auto'],
-          ['items-start'],
-          ['mx-auto'],
-          ['xl:max-w-screen-xl'],
-        )}
-      >
-        <div
-          className={clsx(['sticky'], ['top-0'], ['col-span-1'], ['h-screen'], ['hidden xl:block'])}
-        >
+    <div
+      className={clsx(
+        ['row-auto'],
+        ['mx-auto'],
+        ['w-full max-w-[1320px]'],
+        ['xl:grid xl:grid-cols-[13rem_minmax(0,1fr)_13rem]'],
+        ['items-start'],
+      )}
+    >
+      <div className={clsx(['sticky top-0'], ['hidden h-dvh xl:block'])}>
+        <div className={clsx(['h-full border-r border-zinc-200 dark:border-zinc-800'])}>
           <Navbar />
         </div>
+      </div>
 
-        <div className={clsx(['col-span-10'], ['w-full'])}>
-          <ResumePage />
-          <NavbarMobile />
-        </div>
+      <div className={clsx(['min-w-0 w-full'])}>
+        <ResumePage />
+        <NavbarMobile />
+      </div>
 
-        <div
-          className={clsx(['sticky'], ['top-0'], ['col-span-1'], ['h-screen'], ['hidden xl:block'])}
-        >
+      <div className={clsx(['sticky top-0'], ['hidden h-dvh xl:block'])}>
+        <div className={clsx(['h-full border-l border-zinc-200 dark:border-zinc-800'])}>
           <Aside />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

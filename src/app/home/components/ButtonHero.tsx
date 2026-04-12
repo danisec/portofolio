@@ -13,7 +13,7 @@ function ButtonHero() {
           ['border border-blue-700 bg-blue-600 text-white'],
           ['hover:bg-blue-700'],
         )}
-        href={'mailto:daniaprilyanto35@gmail.com'}
+        href={'mailto:hello@daniaprilyanto.my.id'}
       >
         <Email />
         Let&apos;s collaborate

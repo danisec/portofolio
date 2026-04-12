@@ -10,7 +10,7 @@ function page() {
       className={clsx(
         ['row-auto'],
         ['mx-auto'],
-        ['w-full max-w-[1320px]'],
+        ['w-full'],
         ['xl:grid xl:grid-cols-[13rem_minmax(0,1fr)_13rem]'],
         ['items-start'],
       )}

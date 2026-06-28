@@ -9,8 +9,8 @@ interface DataItem {
 }
 
 const data: DataItem = {
-  image: '/images/profile/dani.svg',
-  alt: 'Portrait of Dani Aprilyanto',
+  image: '/images/profile/dani.webp',
+  alt: 'Dani Aprilyanto, Full-Stack Web Developer',
   name: 'Dani Aprilyanto',
   role: 'Full-Stack Web Developer',
   headline: 'I build reliable web products that stay fast, secure, and maintainable in production.',

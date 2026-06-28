@@ -9,7 +9,11 @@ export default function Hero() {
     <section id="hero" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
       <div className={clsx(['section-shell py-10 lg:py-14'])}>
         <div
-          className={clsx(['grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]'], ['items-start'])}
+          className={clsx(
+            ['mx-auto grid max-w-6xl gap-8'],
+            ['items-start'],
+            ['lg:grid-cols-[minmax(0,44rem)_minmax(0,22rem)]'],
+          )}
         >
           <div
             className={clsx(
@@ -50,15 +54,16 @@ export default function Hero() {
             data-aos="zoom-in"
             data-aos-delay="5"
           >
-            <div className={clsx(['relative aspect-square overflow-hidden rounded-xl bg-slate-100'])}>
+            <div className={clsx(['relative aspect-square overflow-hidden rounded-xl bg-neutral-900 dark:bg-neutral-950'])}>
               <Image
                 src={data.image}
                 alt={data.alt}
-                width={500}
-                height={500}
+                width={1254}
+                height={1254}
+                sizes="(min-width: 1024px) 352px, 384px"
                 priority={true}
                 quality={95}
-                className={clsx(['h-full w-full object-cover object-top pt-2'])}
+                className={clsx(['h-full w-full object-cover object-top'])}
               />
             </div>
             <div className={clsx(['mt-4 space-y-1'])}>

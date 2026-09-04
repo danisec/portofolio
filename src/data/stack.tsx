@@ -4,6 +4,7 @@ import LaravelStack from '@/components/atoms/svg/LaravelStack';
 import TypescriptStack from '@/components/atoms/svg/TypescriptStack';
 import TailwindcssStack from '@/components/atoms/svg/TailwindcssStack';
 import MysqlStack from '@/components/atoms/svg/MysqlStack';
+import PostgresqlStack from '@/components/atoms/svg/PostgresqlStack';
 import DockerStack from '@/components/atoms/svg/DockerStack';
 import GithubStack from '@/components/atoms/svg/Github';
 import FigmaStack from '@/components/atoms/svg/Figma';
@@ -14,7 +15,6 @@ interface TechStackItem {
   category: string;
   name: string;
   description: string;
-  outcome: string;
 }
 
 const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
@@ -30,7 +30,6 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Frontend',
     name: 'React',
     description: 'Component architecture for interactive interfaces.',
-    outcome: 'Builds modular UI that scales with product complexity.',
   },
   {
     id: 'nextjs',
@@ -38,7 +37,6 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Frontend',
     name: 'Next JS',
     description: 'Framework for SSR, routing, and performance optimization.',
-    outcome: 'Delivers faster pages and SEO-friendly user journeys.',
   },
   {
     id: 'tailwindcss',
@@ -46,7 +44,6 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Frontend',
     name: 'Tailwind CSS',
     description: 'Utility-first styling for rapid and consistent UI systems.',
-    outcome: 'Keeps design implementation fast and maintainable.',
   },
   {
     id: 'typescript',
@@ -54,7 +51,6 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Engineering Quality',
     name: 'TypeScript',
     description: 'Typed JavaScript for safer refactoring and clear contracts.',
-    outcome: 'Reduces runtime errors and improves team confidence.',
   },
   {
     id: 'laravel',
@@ -62,7 +58,6 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Backend',
     name: 'Laravel',
     description: 'Backend framework for APIs, auth, and business logic.',
-    outcome: 'Supports secure and structured feature delivery.',
   },
   {
     id: 'mysql',
@@ -70,7 +65,13 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Backend',
     name: 'MySQL',
     description: 'Relational database for transactional and reporting data.',
-    outcome: 'Provides reliable structured data and query performance.',
+  },
+  {
+    id: 'postgresql',
+    icon: <PostgresqlStack $className="w-6 h-6 lg:w-8 lg:h-8 dark:text-white fill-current" />,
+    category: 'Backend',
+    name: 'PostgreSQL',
+    description: 'Advanced relational database for complex queries and data integrity.',
   },
   {
     id: 'docker',
@@ -78,7 +79,6 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Infrastructure',
     name: 'Docker',
     description: 'Containerized environment for local and deployment parity.',
-    outcome: 'Reduces “works on my machine” deployment issues.',
   },
   {
     id: 'github',
@@ -86,7 +86,6 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Infrastructure',
     name: 'Github',
     description: 'Version control and collaboration workflow platform.',
-    outcome: 'Improves traceability, review quality, and release discipline.',
   },
   {
     id: 'figma',
@@ -94,7 +93,6 @@ const techStacks = (theme: 'light' | 'dark'): TechStackItem[] => [
     category: 'Product Collaboration',
     name: 'Figma',
     description: 'Design collaboration tool for UI handoff and iteration.',
-    outcome: 'Aligns engineering and design before implementation.',
   },
 ];
 

@@ -40,15 +40,6 @@ function Services() {
               <p className={clsx(['text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}>
                 {service.description}
               </p>
-
-              <p
-                className={clsx(
-                  ['mt-auto rounded-lg bg-slate-100 px-3 py-2 text-sm font-medium'],
-                  ['text-slate-700 dark:bg-neutral-800 dark:text-neutral-200'],
-                )}
-              >
-                Value: {service.value}
-              </p>
             </article>
           ))}
         </div>

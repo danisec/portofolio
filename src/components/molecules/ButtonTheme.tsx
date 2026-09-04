@@ -2,6 +2,7 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import clsx from 'clsx';
 import Moon from '@/components/atoms/svg/Moon';
 import Sun from '@/components/atoms/svg/Sun';
@@ -19,6 +20,41 @@ function ButtonTheme() {
   if (!mounted) return null;
 
   const currentTheme = theme === 'system' ? systemTheme : theme;
+  const isDark = currentTheme === 'dark';
+
+  const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const next = isDark ? 'light' : 'dark';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!document.startViewTransition || prefersReducedMotion) {
+      setTheme(next);
+      return;
+    }
+
+    const { clientX: x, clientY: y } = event;
+    const viewTransition = document.startViewTransition(() => {
+      flushSync(() => setTheme(next));
+    });
+
+    viewTransition.ready
+      .then(() => {
+        const radius = Math.hypot(
+          Math.max(x, window.innerWidth - x),
+          Math.max(y, window.innerHeight - y),
+        );
+        document.documentElement.animate(
+          {
+            clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`],
+          },
+          {
+            duration: 500,
+            easing: 'ease-in-out',
+            pseudoElement: '::view-transition-new(root)',
+          },
+        );
+      })
+      .catch(() => {});
+  };
 
   return (
     <>
@@ -34,11 +70,26 @@ function ButtonTheme() {
           ['hover:bg-slate-200 hover:dark:bg-neutral-800/70'],
           ['transition-colors'],
         )}
-        aria-label={currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-        title={currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-        onClick={() => (theme == 'dark' ? setTheme('light') : setTheme('dark'))}
+        aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+        title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+        onClick={toggleTheme}
       >
-        {currentTheme === 'dark' ? <Moon className="h-4 w-4 sm:h-5 sm:w-5" /> : <Sun className="h-4 w-4 sm:h-5 sm:w-5" />}
+        <span className={clsx(['relative block size-4 sm:size-5'])} aria-hidden="true">
+          <Sun
+            className={clsx(
+              ['absolute inset-0 h-full w-full'],
+              ['transition-all duration-300'],
+              isDark ? ['scale-0 -rotate-90 opacity-0'] : ['scale-100 rotate-0 opacity-100'],
+            )}
+          />
+          <Moon
+            className={clsx(
+              ['absolute inset-0 h-full w-full'],
+              ['transition-all duration-300'],
+              isDark ? ['scale-100 rotate-0 opacity-100'] : ['scale-0 rotate-90 opacity-0'],
+            )}
+          />
+        </span>
       </button>
     </>
   );

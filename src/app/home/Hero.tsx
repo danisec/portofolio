@@ -17,7 +17,7 @@ export default function Hero() {
         >
           <div
             className={clsx(
-              ['order-2 space-y-5 lg:order-1'],
+              ['order-1 space-y-5 lg:order-1'],
               ['max-w-3xl'],
             )}
             data-aos="fade-up"
@@ -33,7 +33,7 @@ export default function Hero() {
               {data.proofPoints.map((item) => (
                 <li key={item} className={clsx(['flex items-start gap-2 text-sm lg:text-base'])}>
                   <span
-                    className={clsx(['mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400'])}
+                    className={clsx(['mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400'])}
                     aria-hidden="true"
                   />
                   <span>{item}</span>
@@ -46,7 +46,7 @@ export default function Hero() {
 
           <div
             className={clsx(
-              ['order-1 card-surface lg:order-2'],
+              ['order-2 card-surface lg:order-2'],
               ['overflow-hidden'],
               ['p-4 sm:p-5'],
               ['w-full max-w-sm mx-auto lg:justify-self-end'],
@@ -70,7 +70,7 @@ export default function Hero() {
               <p className={clsx(['text-lg font-semibold'])}>{data.name}</p>
               <p className={clsx(['text-sm text-slate-600 dark:text-neutral-300'])}>{data.role}</p>
               <p className={clsx(['text-sm text-slate-500 dark:text-neutral-400'])}>
-                <span className={clsx(['animate-wave'])}>👋</span> Based in Tangerang Selatan, Indonesia
+                Tangerang Selatan, Indonesia · GMT+7
               </p>
             </div>
           </div>

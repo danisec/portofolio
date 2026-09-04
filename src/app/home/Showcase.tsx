@@ -68,7 +68,7 @@ function Showcase() {
     <section id="showcase" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
       <div className={clsx(['section-shell py-10 lg:py-12'])}>
         <div className={clsx(['mb-8 flex flex-col gap-3'])}>
-          <p className={clsx(['section-eyebrow'])}>Case studies</p>
+          <p className={clsx(['section-eyebrow'])}>Featured work</p>
           <div className={clsx(['flex flex-row items-center gap-3'])}>
             <RocketIcon $className="h-9 w-9 dark:text-white stroke-current" />
             <h2 className={clsx(['section-title'])}>Selected Projects</h2>
@@ -91,13 +91,13 @@ function Showcase() {
               )}
               onClick={() => setActiveShowcaseId(showcase.id)}
               aria-haspopup="dialog"
-              aria-label={`Open case study ${showcase.title}`}
+              aria-label={`Open project ${showcase.title}`}
               data-aos="fade-up"
               data-aos-delay={index * 50}
             >
               <div
                 className={clsx(
-                  ['relative aspect-[4/3] w-full overflow-hidden'],
+                  ['relative aspect-[5/3] w-full overflow-hidden'],
                   ['bg-slate-100 dark:bg-neutral-950'],
                 )}
               >
@@ -106,6 +106,7 @@ function Showcase() {
                   src={showcase.image}
                   alt={showcase.alt}
                   fill={true}
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   priority={index < 2}
                 />
               </div>
@@ -174,7 +175,7 @@ function Showcase() {
           >
             <div className={clsx(['flex items-start justify-between gap-4'])}>
               <div className={clsx(['space-y-1'])}>
-                <p className={clsx(['section-eyebrow'])}>Case study detail</p>
+                <p className={clsx(['section-eyebrow'])}>Project detail</p>
                 <h3 id="showcase-modal-title" className={clsx(['text-2xl font-semibold'])}>
                   {activeShowcase.title}
                 </h3>
@@ -187,27 +188,26 @@ function Showcase() {
                   ['hover:bg-slate-200 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700'],
                 )}
                 onClick={() => setActiveShowcaseId(null)}
-                aria-label="Close case study modal"
+                aria-label="Close project modal"
               >
                 <CloseIcon $className="h-5 w-5" />
               </button>
             </div>
 
-            <div
-              className={clsx(
-                ['relative mt-6 aspect-[16/10] w-full overflow-hidden rounded-xl'],
-                ['bg-slate-100 dark:bg-neutral-800'],
-                ['lg:aspect-[16/9]'],
-              )}
-            >
-              <Image
-                className={clsx(['object-contain'])}
-                src={activeShowcase.image}
-                alt={activeShowcase.alt}
-                fill={true}
-                priority={true}
-              />
-            </div>
+              <div
+                className={clsx(
+                  ['relative mt-6 aspect-[5/3] w-full overflow-hidden rounded-xl'],
+                  ['bg-slate-100 dark:bg-neutral-800'],
+                )}
+              >
+                <Image
+                  className={clsx(['object-contain'])}
+                  src={activeShowcase.image}
+                  alt={activeShowcase.alt}
+                  fill={true}
+                  sizes="100vw"
+                />
+              </div>
 
             <div className={clsx(['mt-6 grid gap-4 lg:grid-cols-3'])}>
               <div

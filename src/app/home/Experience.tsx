@@ -8,7 +8,7 @@ function Experience() {
     <section id="experience" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
       <div className={clsx(['section-shell py-10 lg:py-12'])}>
         <div className={clsx(['mb-8 flex flex-col gap-3'])}>
-          <p className={clsx(['section-eyebrow'])}>Proof of execution</p>
+          <p className={clsx(['section-eyebrow'])}>Work experience</p>
           <div className={clsx(['flex flex-row items-center gap-3'])}>
             <BriefcaseIcon $className="h-9 w-9 dark:text-white stroke-current" />
             <h2 className={clsx(['section-title'])}>Professional Experience</h2>
@@ -22,8 +22,8 @@ function Experience() {
         <div className={clsx(['relative pl-0 lg:pl-8'])}>
           <div
             className={clsx(
-              ['absolute top-0 left-3 hidden h-full w-px lg:block'],
-              ['bg-slate-300 dark:bg-neutral-700'],
+              ['absolute top-8 bottom-8 left-3 hidden w-px lg:block'],
+              ['bg-gradient-to-b from-transparent via-slate-300 to-transparent dark:via-neutral-700'],
             )}
             aria-hidden="true"
           />
@@ -32,14 +32,20 @@ function Experience() {
             {experiences.map((experience, index) => (
               <article
                 key={experience.id}
-                className={clsx(
-                  ['relative card-surface overflow-hidden p-5 lg:p-6'],
-                  ['lg:before:absolute lg:before:top-7 lg:before:-left-[1.9rem] lg:before:h-3 lg:before:w-3'],
-                  ['lg:before:rounded-full lg:before:bg-blue-600 dark:lg:before:bg-blue-400'],
-                )}
+                className={clsx(['relative card-surface overflow-hidden p-5 lg:p-6'])}
                 data-aos="fade-up"
                 data-aos-delay={index * 60}
               >
+                <span
+                  className={clsx(
+                    ['absolute top-[52px] -left-[26px] hidden -translate-y-1/2 lg:block'],
+                    ['h-3 w-3 rounded-full'],
+                    index === 0
+                      ? ['bg-blue-600 ring-4 ring-blue-100 dark:bg-blue-400 dark:ring-blue-950']
+                      : ['bg-slate-400 ring-4 ring-white dark:bg-neutral-600 dark:ring-neutral-950'],
+                  )}
+                  aria-hidden="true"
+                />
                 <div className={clsx(['flex flex-wrap items-start justify-between gap-4'])}>
                   <div className={clsx(['flex min-w-0 items-start gap-3'])}>
                     <div
@@ -83,15 +89,6 @@ function Experience() {
                 <p className={clsx(['mt-4 text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}>
                   {experience.summary}
                 </p>
-
-                <div
-                  className={clsx(
-                    ['mt-4 rounded-xl border border-blue-200 bg-blue-50 px-3 py-2'],
-                    ['text-sm font-medium text-blue-800 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-200'],
-                  )}
-                >
-                  Impact: {experience.impact}
-                </div>
 
                 <ul className={clsx(['mt-4 space-y-2'])}>
                   {experience.highlights.map((highlight) => (

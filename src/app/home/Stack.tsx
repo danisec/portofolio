@@ -7,14 +7,14 @@ import CommandIcon from '@/components/atoms/svg/Command';
 import getTechStacks from '@/data/stack';
 
 function Stack() {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const techStacks = mounted ? getTechStacks(theme as 'light' | 'dark') : [];
+  const techStacks = mounted ? getTechStacks(resolvedTheme as 'light' | 'dark') : [];
   const groupedStacks = techStacks.reduce<Record<string, typeof techStacks>>((acc, stack) => {
     if (!acc[stack.category]) {
       acc[stack.category] = [];
@@ -66,14 +66,6 @@ function Stack() {
                     </div>
                     <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
                       {stack.description}
-                    </p>
-                    <p
-                      className={clsx(
-                        ['rounded-lg bg-slate-100 px-3 py-2 text-sm'],
-                        ['text-slate-700 dark:bg-neutral-800 dark:text-neutral-200'],
-                      )}
-                    >
-                      Outcome: {stack.outcome}
                     </p>
                   </article>
                 ))}

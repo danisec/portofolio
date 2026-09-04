@@ -13,7 +13,7 @@ export default function HomePage() {
     <div className={clsx(['mx-auto w-full'])}>
       <Header />
 
-      <main className={clsx(['dark:bg-neutral-950'])}>
+      <main>
         <Hero />
         <Experience />
         <Education />

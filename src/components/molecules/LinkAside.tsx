@@ -18,13 +18,13 @@ function LinkAside({ compact = false }: LinkAsideProps) {
       href: 'https://www.linkedin.com/in/dani-aprilyanto',
       icon: <LinkedInIcon $className="h-5 w-5 dark:text-white fill-current" />,
       label: 'LinkedIn',
-      helper: 'Professional profile',
+      helper: 'Profile',
     },
     {
       href: 'https://github.com/danisec',
       icon: <GithubIcon $className="h-5 w-5 dark:text-white fill-current" />,
       label: 'GitHub',
-      helper: 'Source code and experiments',
+      helper: 'Code & experiments',
     },
   ];
 

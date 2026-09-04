@@ -9,7 +9,7 @@ export default function ResumePage() {
       <div className={clsx(['mx-auto'], ['w-full'])}>
         <Header />
 
-        <main className={clsx(['dark:bg-neutral-950'])}>
+        <main>
           <Resume />
           <Footer />
         </main>

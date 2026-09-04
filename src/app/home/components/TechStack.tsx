@@ -8,11 +8,12 @@ import NextjsStack from '@/components/atoms/svg/NextjsStack';
 import LaravelStack from '@/components/atoms/svg/LaravelStack';
 import TypescriptStack from '@/components/atoms/svg/TypescriptStack';
 import MysqlStack from '@/components/atoms/svg/MysqlStack';
+import PostgresqlStack from '@/components/atoms/svg/PostgresqlStack';
 import DockerStack from '@/components/atoms/svg/DockerStack';
 import TailwindcssStack from '@/components/atoms/svg/TailwindcssStack';
 
 function TechStack() {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   // Avoid theme flicker
@@ -28,8 +29,8 @@ function TechStack() {
       icon: (
         <ReactStack
           $className="w-6 h-6 lg:w-8 lg:h-8"
-          $fillColor={theme === 'dark' ? '#ffffff' : '#000000'}
-          $strokeColor={theme === 'dark' ? '#ffffff' : '#000000'}
+          $fillColor={resolvedTheme === 'dark' ? '#ffffff' : '#000000'}
+          $strokeColor={resolvedTheme === 'dark' ? '#ffffff' : '#000000'}
         />
       ),
       name: 'React',
@@ -38,8 +39,8 @@ function TechStack() {
       icon: (
         <NextjsStack
           $className="w-6 h-6 lg:w-8 lg:h-8 dark:text-white fill-current"
-          $fillColor={theme === 'dark' ? '#ffffff' : '#000000'}
-          $stopColor={theme === 'dark' ? '#000000' : '#ffffff'}
+          $fillColor={resolvedTheme === 'dark' ? '#ffffff' : '#000000'}
+          $stopColor={resolvedTheme === 'dark' ? '#000000' : '#ffffff'}
         />
       ),
       name: 'Next JS',
@@ -55,6 +56,10 @@ function TechStack() {
     {
       icon: <MysqlStack $className="w-6 h-6 lg:w-8 lg:h-8 dark:text-white fill-current" />,
       name: 'MySQL',
+    },
+    {
+      icon: <PostgresqlStack $className="w-6 h-6 lg:w-8 lg:h-8 dark:text-white fill-current" />,
+      name: 'PostgreSQL',
     },
     {
       icon: <DockerStack $className="w-6 h-6 lg:w-8 lg:h-8 dark:text-white fill-current" />,
@@ -78,7 +83,12 @@ function TechStack() {
         Core toolkit
       </p>
       <div className={clsx(['relative overflow-hidden'])}>
-        <div className={clsx(['animate-scroll motion-reduce:animate-none'], ['flex w-max gap-6'])}>
+        <div
+          className={clsx(
+            ['animate-scroll motion-reduce:animate-none hover:[animation-play-state:paused]'],
+            ['flex w-max gap-6 pr-6'],
+          )}
+        >
           {[...techStacks, ...techStacks].map((stack, index) => (
             <div
               key={`${stack.name}-${index}`}

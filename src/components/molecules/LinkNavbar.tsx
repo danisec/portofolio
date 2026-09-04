@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
@@ -18,6 +18,8 @@ interface LinkNavbarProps {
 function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState('');
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const [indicator, setIndicator] = useState<{ start: number; size: number } | null>(null);
 
   useEffect(() => {
     const links = [
@@ -28,22 +30,28 @@ function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
       'my-stack',
       'my-services',
     ];
-    const sections = links
-      .map((sectionId) => document.getElementById(sectionId))
-      .filter((section): section is HTMLElement => section !== null);
-
-    if (!sections.length) {
-      setActiveSection('');
-      return;
-    }
 
     const onScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight * 0.3;
-      let currentSection = sections[0].id;
+      const sections = links
+        .map((sectionId) => document.getElementById(sectionId))
+        .filter((section): section is HTMLElement => section !== null);
 
-      for (const section of sections) {
-        if (scrollPosition >= section.offsetTop) {
-          currentSection = section.id;
+      if (!sections.length) {
+        setActiveSection('');
+        return;
+      }
+
+      const scrollPosition = window.scrollY + window.innerHeight * 0.3;
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+      let currentSection = atBottom ? sections[sections.length - 1].id : sections[0].id;
+
+      if (!atBottom) {
+        for (const section of sections) {
+          if (scrollPosition >= section.offsetTop) {
+            currentSection = section.id;
+          }
         }
       }
 
@@ -54,6 +62,32 @@ function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [pathname]);
+
+  useEffect(() => {
+    const updateIndicator = () => {
+      const container = listRef.current;
+      if (!container || !activeSection) {
+        setIndicator(null);
+        return;
+      }
+
+      const el = container.querySelector<HTMLElement>(`[data-section="${activeSection}"]`);
+      if (!el) {
+        setIndicator(null);
+        return;
+      }
+
+      if (variant === 'desktop') {
+        setIndicator({ start: el.offsetTop, size: el.offsetHeight });
+      } else {
+        setIndicator({ start: el.offsetLeft + el.offsetWidth / 2, size: 4 });
+      }
+    };
+
+    updateIndicator();
+    window.addEventListener('resize', updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [activeSection, variant]);
 
   const links: {
     href: string;
@@ -83,7 +117,7 @@ function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
       href: '/#showcase',
       icon: <RocketIcon $className="h-5 w-5 dark:text-white stroke-current" />,
       section: 'showcase',
-      label: 'Case Studies',
+      label: 'Projects',
     },
     {
       href: '/#my-stack',
@@ -100,11 +134,42 @@ function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
   ];
 
   return (
-    <>
+    <div
+      ref={listRef}
+      className={clsx(
+        ['relative'],
+        variant === 'mobile' ? ['flex w-full gap-1'] : ['flex flex-col gap-2'],
+      )}
+    >
+      {indicator && variant === 'desktop' && (
+        <span
+          aria-hidden="true"
+          className={clsx(
+            ['absolute left-0 w-full rounded-xl'],
+            ['border border-slate-300 bg-slate-200'],
+            ['dark:border-neutral-700 dark:bg-neutral-800'],
+            ['transition-[top] duration-300 ease-out'],
+          )}
+          style={{ top: indicator.start, height: indicator.size }}
+        />
+      )}
+      {indicator && variant === 'mobile' && (
+        <span
+          aria-hidden="true"
+          className={clsx(
+            ['absolute top-0 h-1 w-1 -translate-x-1/2 rounded-full'],
+            ['bg-blue-600 dark:bg-blue-400'],
+            ['transition-[left] duration-300 ease-out'],
+          )}
+          style={{ left: indicator.start }}
+        />
+      )}
+
       {links.map((link) => (
         <Link
           key={link.href}
           href={link.href}
+          data-section={link.section}
           aria-current={activeSection === link.section ? 'page' : undefined}
           aria-label={variant === 'mobile' ? link.label : undefined}
           title={variant === 'mobile' ? link.label : undefined}
@@ -114,13 +179,13 @@ function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
                   'group relative flex min-w-0 flex-1 items-center justify-center rounded-xl px-2 py-2 text-[11px] font-medium',
                 ]
               : [
-                  'group flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium',
+                  'group relative flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium',
                   'border border-transparent',
                 ],
             activeSection === link.section
               ? [
-                  'bg-slate-200 text-slate-900 dark:bg-neutral-800 dark:text-white',
-                  variant === 'desktop' ? 'border-slate-300 dark:border-neutral-700' : '',
+                  'text-slate-900 dark:text-white',
+                  variant === 'mobile' ? '' : 'border-transparent',
                 ]
               : [
                   'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
@@ -155,7 +220,7 @@ function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
           )}
         </Link>
       ))}
-    </>
+    </div>
   );
 }
 

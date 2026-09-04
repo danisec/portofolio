@@ -6,8 +6,8 @@ interface EducationItem {
   title: string;
   period: string;
   studyType: string;
+  gpa?: string;
   summary: string;
-  outcome: string;
   focusAreas: string[];
 }
 
@@ -18,16 +18,16 @@ const educations: EducationItem[] = [
     logo: '/images/logo/upj.png',
     alt: 'UPJ Logo',
     title: 'Informatics',
-    period: 'Sept 2020 — Sept 2024',
+    period: 'Sep 2020 — Sep 2024',
     studyType: 'Bachelor Degree',
+    gpa: '3.61',
     summary:
-      'Built a strong full-stack foundation through academic projects, team collaboration, and software engineering coursework.',
-    outcome: 'Graduated with practical experience in end-to-end web application delivery.',
+      'Computer science degree applied in the field, capped by building and deploying academic administration systems for a real school (Erenos) as professional work and final project. Thesis: web-based decision support with the Analytical Hierarchy Process for teacher performance evaluation, the basis of the KinerjaPlus platform.',
     focusAreas: [
-      'Frontend development with HTML, CSS, JavaScript, and Bootstrap.',
-      'Backend architecture using PHP, CodeIgniter, and Laravel.',
-      'Database design and query optimization with MySQL and PostgreSQL.',
-      'Version control and collaboration workflows with Git and GitHub.',
+      'Engineering foundations: data structures & algorithms, OOP, operating systems, and computer networks.',
+      'Database design and optimization with SQL, backed by human-computer interaction coursework for user-centered thinking.',
+      'Software engineering process: SDLC, use cases, UML (sequence and class diagrams), and effort estimation.',
+      'Applied delivery: PHP web engineering from coursework, extended with Laravel and Git through real school projects.',
     ],
   },
   {
@@ -39,12 +39,12 @@ const educations: EducationItem[] = [
     period: 'Aug 2022 — Dec 2022',
     studyType: 'Bootcamp',
     summary:
-      'Completed an intensive frontend bootcamp focused on modern JavaScript, React, React Native, and state management patterns.',
-    outcome: 'Strengthened practical product delivery skills with project-based implementation.',
+      'Intensive 5-month frontend bootcamp covering the React ecosystem end-to-end from ES6 fundamentals and component styling to React Native and Redux completed with graduation certification.',
     focusAreas: [
-      'Modern JavaScript patterns and asynchronous data handling.',
-      'State and props architecture for reusable component systems.',
-      'Redux for predictable state management and middleware flow.',
+      'Modern JavaScript (ES6): syntax upgrades, module organization, and built-in APIs for asynchronous data handling.',
+      'Component styling systems: CSS Modules, Styled Components, and Emotion, with a design-to-application workflow.',
+      'State management with Redux and Redux Thunk middleware, plus SPA and server-side rendering concepts.',
+      'React Native with Expo: layouts, screen navigation, forms, third-party components, and data fetching.',
     ],
   },
 ];

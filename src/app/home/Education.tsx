@@ -27,40 +27,31 @@ function Education() {
               data-aos="fade-up"
               data-aos-delay={index * 60}
             >
-              <div className={clsx(['flex flex-wrap items-start justify-between gap-4'])}>
-                <div className={clsx(['flex items-start gap-3'])}>
-                  <div
-                    className={clsx(
-                      ['flex h-14 w-14 shrink-0 items-center justify-center rounded-xl'],
-                      ['border border-slate-200 bg-white p-2'],
-                      ['dark:border-neutral-700 dark:bg-neutral-800'],
-                    )}
-                  >
-                    <Image
-                      src={education.logo}
-                      alt={education.alt}
-                      width={48}
-                      height={48}
-                      className={clsx(['h-full w-full object-contain'])}
-                    />
-                  </div>
-
-                  <div className={clsx(['space-y-1'])}>
-                    <h3 className={clsx(['text-lg font-semibold lg:text-xl'])}>{education.institution}</h3>
-                    <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
-                      {education.title} · {education.studyType}
-                    </p>
-                  </div>
-                </div>
-
-                <span
+              <div className={clsx(['flex items-start gap-3'])}>
+                <div
                   className={clsx(
-                    ['rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold'],
-                    ['text-slate-700 dark:border-neutral-700 dark:text-neutral-300'],
+                    ['flex h-14 w-14 shrink-0 items-center justify-center rounded-xl'],
+                    ['border border-slate-200 bg-white p-2'],
+                    ['dark:border-neutral-700 dark:bg-neutral-800'],
                   )}
                 >
-                  {education.period}
-                </span>
+                  <Image
+                    src={education.logo}
+                    alt={education.alt}
+                    width={48}
+                    height={48}
+                    className={clsx(['h-full w-full object-contain'])}
+                  />
+                </div>
+
+                <div className={clsx(['min-w-0 space-y-1'])}>
+                  <h3 className={clsx(['text-lg font-semibold lg:text-xl'])}>{education.institution}</h3>
+                  <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
+                    {education.title} · {education.studyType}
+                    {education.gpa ? ` · GPA ${education.gpa}` : ''}
+                  </p>
+                  <p className={clsx(['text-xs text-slate-500 dark:text-neutral-400'])}>{education.period}</p>
+                </div>
               </div>
 
               <p className={clsx(['mt-4 text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}>
@@ -75,15 +66,6 @@ function Education() {
                   </li>
                 ))}
               </ul>
-
-              <div
-                className={clsx(
-                  ['mt-5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-medium'],
-                  ['text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'],
-                )}
-              >
-                Outcome: {education.outcome}
-              </div>
             </article>
           ))}
         </div>

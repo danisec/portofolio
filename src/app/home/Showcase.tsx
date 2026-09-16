@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
@@ -12,57 +12,54 @@ import showcases from '@/data/showcases';
 
 function Showcase() {
   const [activeShowcaseId, setActiveShowcaseId] = useState<string | null>(null);
-  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const lastTriggerId = useRef<string | null>(null);
 
   const activeShowcase = useMemo(
     () => showcases.find((showcase) => showcase.id === activeShowcaseId) ?? null,
     [activeShowcaseId],
   );
 
+  const returnFocusToTrigger = useCallback(() => {
+    const triggerId = lastTriggerId.current;
+    if (triggerId) {
+      triggerRefs.current[triggerId]?.focus();
+      lastTriggerId.current = null;
+    }
+  }, []);
+
+  const closeShowcase = useCallback(() => {
+    dialogRef.current?.close();
+  }, []);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (activeShowcase) {
+      lastTriggerId.current = activeShowcaseId;
+      if (!dialog.open) dialog.showModal();
+    } else if (dialog.open) {
+      dialog.close();
+    }
+  }, [activeShowcase, activeShowcaseId]);
+
   useEffect(() => {
     if (!activeShowcase) return;
 
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    const dialog = dialogRef.current;
-    const getFocusable = () =>
-      dialog?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-      );
-
-    const focusableElements = getFocusable();
-    focusableElements?.[0]?.focus();
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setActiveShowcaseId(null);
-        return;
-      }
-
-      if (event.key !== 'Tab') return;
-      const elements = getFocusable();
-      if (!elements || elements.length === 0) return;
-
-      const first = elements[0];
-      const last = elements[elements.length - 1];
-      const isShiftTab = event.shiftKey;
-
-      if (isShiftTab && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!isShiftTab && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
     return () => {
-      document.body.style.overflow = '';
-      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
     };
   }, [activeShowcase]);
+
+  const handleDialogClose = useCallback(() => {
+    setActiveShowcaseId(null);
+    returnFocusToTrigger();
+  }, [returnFocusToTrigger]);
 
   return (
     <section id="showcase" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
@@ -83,9 +80,12 @@ function Showcase() {
           {showcases.map((showcase, index) => (
             <button
               key={showcase.id}
+              ref={(node) => {
+                triggerRefs.current[showcase.id] = node;
+              }}
               type="button"
               className={clsx(
-                ['card-surface group text-left'],
+                ['card-surface group flex flex-col text-left'],
                 ['overflow-hidden'],
                 ['transition-colors hover:bg-slate-100 dark:hover:bg-neutral-800'],
               )}
@@ -97,21 +97,50 @@ function Showcase() {
             >
               <div
                 className={clsx(
-                  ['relative aspect-[5/3] w-full overflow-hidden'],
+                  ['relative aspect-video w-full overflow-hidden'],
                   ['bg-slate-100 dark:bg-neutral-950'],
                 )}
               >
                 <Image
-                  className={clsx(['object-cover object-top'])}
+                  className={clsx(
+                    ['object-cover'],
+                    ['transition-transform duration-500 ease-out group-hover:scale-[1.03]'],
+                    ['motion-reduce:transition-none motion-reduce:group-hover:scale-100'],
+                  )}
                   src={showcase.image}
                   alt={showcase.alt}
                   fill={true}
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   priority={index < 2}
                 />
+
+                <div
+                  aria-hidden="true"
+                  className={clsx(
+                    ['pointer-events-none absolute inset-0'],
+                    ['bg-gradient-to-t from-black/70 via-black/10 to-transparent'],
+                    ['opacity-0 transition-opacity duration-300 group-hover:opacity-100'],
+                    ['group-focus-visible:opacity-100'],
+                  )}
+                />
+
+                <span
+                  aria-hidden="true"
+                  className={clsx(
+                    ['pointer-events-none absolute bottom-3 left-3'],
+                    ['inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5'],
+                    ['text-xs font-semibold text-slate-900 shadow-sm'],
+                    ['translate-y-1 opacity-0 transition duration-300'],
+                    ['group-hover:translate-y-0 group-hover:opacity-100'],
+                    ['group-focus-visible:translate-y-0 group-focus-visible:opacity-100'],
+                  )}
+                >
+                  View project
+                  <span aria-hidden="true">&rarr;</span>
+                </span>
               </div>
 
-              <div className={clsx(['space-y-3 p-5'])}>
+              <div className={clsx(['flex flex-1 flex-col space-y-3 p-5'])}>
                 <div className={clsx(['flex flex-wrap items-center justify-between gap-2'])}>
                   <h3 className={clsx(['text-lg font-semibold'])}>{showcase.title}</h3>
                   <span
@@ -124,20 +153,22 @@ function Showcase() {
                   </span>
                 </div>
 
-                <p className={clsx(['text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}>
+                <p
+                  className={clsx(['text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}
+                >
                   {showcase.summary}
                 </p>
 
                 <p
                   className={clsx(
-                    ['rounded-lg bg-slate-100 px-3 py-2 text-sm'],
-                    ['text-slate-700 dark:bg-neutral-800 dark:text-neutral-200'],
+                    ['border-l-2 border-emerald-500 pl-3 text-sm leading-relaxed font-medium'],
+                    ['text-slate-900 dark:border-emerald-400 dark:text-neutral-100'],
                   )}
                 >
-                  Outcome: {showcase.outcome}
+                  {showcase.outcome}
                 </p>
 
-                <div className={clsx(['flex flex-wrap gap-2'])}>
+                <div className={clsx(['mt-auto flex flex-wrap gap-2 pt-1'])}>
                   {showcase.stack.map((item) => (
                     <span
                       key={`${showcase.id}-${item}`}
@@ -156,23 +187,19 @@ function Showcase() {
         </div>
       </div>
 
-      {activeShowcase && (
-        <div
-          className={clsx(['fixed inset-0 z-50 bg-black/70 px-4 py-6 backdrop-blur-sm'])}
-          onClick={() => setActiveShowcaseId(null)}
-          role="presentation"
-        >
-          <div
-            ref={dialogRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="showcase-modal-title"
-            className={clsx(
-              ['mx-auto max-h-[95vh] w-full max-w-5xl overflow-y-auto rounded-2xl p-5 lg:p-8'],
-              ['bg-white dark:bg-neutral-900'],
-            )}
-            onClick={(event) => event.stopPropagation()}
-          >
+      <dialog
+        ref={dialogRef}
+        onClose={handleDialogClose}
+        aria-labelledby="showcase-modal-title"
+        className={clsx(
+          ['showcase-dialog'],
+          ['m-auto max-h-[calc(100dvh-3rem)] w-[calc(100vw-2rem)] max-w-5xl'],
+          ['overflow-y-auto rounded-2xl p-5 lg:p-8'],
+          ['bg-white text-slate-900 dark:bg-neutral-900 dark:text-neutral-100'],
+        )}
+      >
+        {activeShowcase && (
+          <>
             <div className={clsx(['flex items-start justify-between gap-4'])}>
               <div className={clsx(['space-y-1'])}>
                 <p className={clsx(['section-eyebrow'])}>Project detail</p>
@@ -185,51 +212,57 @@ function Showcase() {
                 type="button"
                 className={clsx(
                   ['rounded-lg border border-slate-300 bg-slate-100 p-2'],
-                  ['hover:bg-slate-200 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700'],
+                  [
+                    'hover:bg-slate-200 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:bg-neutral-700',
+                  ],
                 )}
-                onClick={() => setActiveShowcaseId(null)}
+                onClick={closeShowcase}
                 aria-label="Close project modal"
               >
                 <CloseIcon $className="h-5 w-5" />
               </button>
             </div>
 
-              <div
-                className={clsx(
-                  ['relative mt-6 aspect-[5/3] w-full overflow-hidden rounded-xl'],
-                  ['bg-slate-100 dark:bg-neutral-800'],
-                )}
-              >
-                <Image
-                  className={clsx(['object-contain'])}
-                  src={activeShowcase.image}
-                  alt={activeShowcase.alt}
-                  fill={true}
-                  sizes="100vw"
-                />
-              </div>
+            <div
+              className={clsx(
+                ['relative mt-6 aspect-video w-full overflow-hidden rounded-xl'],
+                ['bg-slate-100 dark:bg-neutral-800'],
+              )}
+            >
+              <Image
+                className={clsx(['object-cover'])}
+                src={activeShowcase.image}
+                alt={activeShowcase.alt}
+                fill={true}
+                sizes="(min-width: 1024px) 1024px, 100vw"
+              />
+            </div>
 
             <div className={clsx(['mt-6 grid gap-4 lg:grid-cols-3'])}>
               <div
-                className={clsx(
-                  ['rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-neutral-700 dark:bg-neutral-800'],
-                )}
+                className={clsx([
+                  'rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-neutral-700 dark:bg-neutral-800',
+                ])}
               >
                 <p className={clsx(['text-xs font-semibold tracking-wide uppercase'])}>Problem</p>
                 <p className={clsx(['mt-2 text-sm leading-relaxed'])}>{activeShowcase.problem}</p>
               </div>
               <div
-                className={clsx(
-                  ['rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-neutral-700 dark:bg-neutral-800'],
-                )}
+                className={clsx([
+                  'rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-neutral-700 dark:bg-neutral-800',
+                ])}
               >
-                <p className={clsx(['text-xs font-semibold tracking-wide uppercase'])}>Contribution</p>
-                <p className={clsx(['mt-2 text-sm leading-relaxed'])}>{activeShowcase.contribution}</p>
+                <p className={clsx(['text-xs font-semibold tracking-wide uppercase'])}>
+                  Contribution
+                </p>
+                <p className={clsx(['mt-2 text-sm leading-relaxed'])}>
+                  {activeShowcase.contribution}
+                </p>
               </div>
               <div
-                className={clsx(
-                  ['rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-neutral-700 dark:bg-neutral-800'],
-                )}
+                className={clsx([
+                  'rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-neutral-700 dark:bg-neutral-800',
+                ])}
               >
                 <p className={clsx(['text-xs font-semibold tracking-wide uppercase'])}>Result</p>
                 <p className={clsx(['mt-2 text-sm leading-relaxed'])}>{activeShowcase.result}</p>
@@ -257,7 +290,9 @@ function Showcase() {
                   rel="noreferrer"
                   href={activeShowcase.liveDemo}
                   className={clsx(
-                    ['inline-flex items-center gap-2 rounded-xl border border-blue-700 bg-blue-600 px-4 py-2.5'],
+                    [
+                      'inline-flex items-center gap-2 rounded-xl border border-blue-700 bg-blue-600 px-4 py-2.5',
+                    ],
                     ['text-sm font-semibold text-white hover:bg-blue-700'],
                   )}
                 >
@@ -267,31 +302,41 @@ function Showcase() {
               ) : (
                 <span
                   className={clsx(
-                    ['inline-flex items-center rounded-xl border border-amber-300 bg-amber-50 px-4 py-2.5'],
-                    ['text-sm font-semibold text-amber-800 dark:border-amber-900 dark:bg-amber-950/60 dark:text-amber-300'],
+                    [
+                      'inline-flex items-center rounded-xl border border-amber-300 bg-amber-50 px-4 py-2.5',
+                    ],
+                    [
+                      'text-sm font-semibold text-amber-800 dark:border-amber-900 dark:bg-amber-950/60 dark:text-amber-300',
+                    ],
                   )}
                 >
                   Live demo is not publicly available.
                 </span>
               )}
 
-              <Link
-                target="_blank"
-                rel="noreferrer"
-                href={activeShowcase.github}
-                className={clsx(
-                  ['inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5'],
-                  ['text-sm font-semibold text-slate-900 hover:bg-slate-200'],
-                  ['dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700'],
-                )}
-              >
-                <GithubIcon $className="h-4 w-4 dark:text-white" />
-                GitHub repository
-              </Link>
+              {activeShowcase.github && (
+                <Link
+                  target="_blank"
+                  rel="noreferrer"
+                  href={activeShowcase.github}
+                  className={clsx(
+                    [
+                      'inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5',
+                    ],
+                    ['text-sm font-semibold text-slate-900 hover:bg-slate-200'],
+                    [
+                      'dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700',
+                    ],
+                  )}
+                >
+                  <GithubIcon $className="h-4 w-4 dark:text-white" />
+                  GitHub repository
+                </Link>
+              )}
             </div>
-          </div>
-        </div>
-      )}
+          </>
+        )}
+      </dialog>
     </section>
   );
 }

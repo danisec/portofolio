@@ -14,18 +14,17 @@ function Education() {
             <h2 className={clsx(['section-title'])}>Education</h2>
           </div>
           <p className={clsx(['section-description max-w-3xl'])}>
-            Structured learning that strengthened my engineering fundamentals and frontend
-            delivery capability.
+            Structured learning that strengthened my engineering fundamentals and frontend delivery
+            capability.
           </p>
         </div>
 
         <div className={clsx(['grid gap-6 lg:grid-cols-2'])}>
-          {educations.map((education, index) => (
+          {educations.map((education) => (
             <article
               key={education.id}
               className={clsx(['card-surface flex h-full flex-col p-5 lg:p-6'])}
-              data-aos="fade-up"
-              data-aos-delay={index * 60}
+              data-reveal="up"
             >
               <div className={clsx(['flex items-start gap-3'])}>
                 <div
@@ -45,23 +44,33 @@ function Education() {
                 </div>
 
                 <div className={clsx(['min-w-0 space-y-1'])}>
-                  <h3 className={clsx(['text-lg font-semibold lg:text-xl'])}>{education.institution}</h3>
+                  <h3 className={clsx(['text-lg font-semibold lg:text-xl'])}>
+                    {education.institution}
+                  </h3>
                   <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
                     {education.title} · {education.studyType}
                     {education.gpa ? ` · GPA ${education.gpa}` : ''}
                   </p>
-                  <p className={clsx(['text-xs text-slate-500 dark:text-neutral-400'])}>{education.period}</p>
+                  <p className={clsx(['text-xs text-slate-500 dark:text-neutral-400'])}>
+                    {education.period}
+                  </p>
                 </div>
               </div>
 
-              <p className={clsx(['mt-4 text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}>
+              <p
+                className={clsx([
+                  'mt-4 text-sm leading-relaxed text-slate-700 dark:text-neutral-300',
+                ])}
+              >
                 {education.summary}
               </p>
 
               <ul className={clsx(['mt-4 space-y-2'])}>
                 {education.focusAreas.map((focusArea) => (
                   <li key={focusArea} className={clsx(['flex items-start gap-2 text-sm'])}>
-                    <span className={clsx(['mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500'])} />
+                    <span
+                      className={clsx(['mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500'])}
+                    />
                     <span>{focusArea}</span>
                   </li>
                 ))}

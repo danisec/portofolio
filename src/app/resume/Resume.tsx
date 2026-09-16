@@ -7,6 +7,9 @@ import DocumentIcon from '@/components/atoms/svg/Document';
 // Lazy load PDFViewer to prevent SSR issues
 const PDFViewer = dynamic(() => import('@/utils/PDFViewer/PDFViewer'), {
   ssr: false,
+  loading: () => (
+    <div className="h-[750px] w-full animate-pulse rounded-lg border border-zinc-200 bg-slate-100 dark:border-zinc-700 dark:bg-neutral-800/60" />
+  ),
 });
 
 export default function Resume() {

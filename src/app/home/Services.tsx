@@ -19,18 +19,17 @@ function Services() {
         </div>
 
         <div className={clsx(['grid gap-5 md:grid-cols-2 xl:grid-cols-3'])}>
-          {services.map((service, index) => (
+          {services.map((service) => (
             <article
               key={service.id}
               className={clsx(['card-surface flex h-full flex-col gap-4 p-5'])}
-              data-aos="fade-up"
-              data-aos-delay={index * 50}
+              data-reveal="up"
             >
               <div className={clsx(['flex items-center gap-3'])}>
                 <div
-                  className={clsx(
-                    ['flex items-center justify-center rounded-lg bg-white p-2 dark:bg-neutral-800'],
-                  )}
+                  className={clsx([
+                    'flex items-center justify-center rounded-lg bg-white p-2 dark:bg-neutral-800',
+                  ])}
                 >
                   {service.icon}
                 </div>

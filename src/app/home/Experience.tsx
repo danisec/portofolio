@@ -23,7 +23,9 @@ function Experience() {
           <div
             className={clsx(
               ['absolute top-8 bottom-8 left-3 hidden w-px lg:block'],
-              ['bg-gradient-to-b from-transparent via-slate-300 to-transparent dark:via-neutral-700'],
+              [
+                'bg-gradient-to-b from-transparent via-slate-300 to-transparent dark:via-neutral-700',
+              ],
             )}
             aria-hidden="true"
           />
@@ -32,9 +34,8 @@ function Experience() {
             {experiences.map((experience, index) => (
               <article
                 key={experience.id}
-                className={clsx(['relative card-surface overflow-hidden p-5 lg:p-6'])}
-                data-aos="fade-up"
-                data-aos-delay={index * 60}
+                className={clsx(['card-surface relative overflow-hidden p-5 lg:p-6'])}
+                data-reveal="up"
               >
                 <span
                   className={clsx(
@@ -42,7 +43,9 @@ function Experience() {
                     ['h-3 w-3 rounded-full'],
                     index === 0
                       ? ['bg-blue-600 ring-4 ring-blue-100 dark:bg-blue-400 dark:ring-blue-950']
-                      : ['bg-slate-400 ring-4 ring-white dark:bg-neutral-600 dark:ring-neutral-950'],
+                      : [
+                          'bg-slate-400 ring-4 ring-white dark:bg-neutral-600 dark:ring-neutral-950',
+                        ],
                   )}
                   aria-hidden="true"
                 />
@@ -86,14 +89,20 @@ function Experience() {
                   </span>
                 </div>
 
-                <p className={clsx(['mt-4 text-sm leading-relaxed text-slate-700 dark:text-neutral-300'])}>
+                <p
+                  className={clsx([
+                    'mt-4 text-sm leading-relaxed text-slate-700 dark:text-neutral-300',
+                  ])}
+                >
                   {experience.summary}
                 </p>
 
                 <ul className={clsx(['mt-4 space-y-2'])}>
                   {experience.highlights.map((highlight) => (
                     <li key={highlight} className={clsx(['flex items-start gap-2 text-sm'])}>
-                      <span className={clsx(['mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500'])} />
+                      <span
+                        className={clsx(['mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500'])}
+                      />
                       <span>{highlight}</span>
                     </li>
                   ))}

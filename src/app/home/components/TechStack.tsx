@@ -85,7 +85,7 @@ function TechStack() {
       <div className={clsx(['relative overflow-hidden'])}>
         <div
           className={clsx(
-            ['animate-scroll motion-reduce:animate-none hover:[animation-play-state:paused]'],
+            ['animate-scroll hover:[animation-play-state:paused] motion-reduce:animate-none'],
             ['flex w-max gap-6 pr-6'],
           )}
         >

@@ -19,17 +19,13 @@ function Header() {
       className={clsx(
         ['sticky top-0 z-40'],
         ['transition-colors duration-300'],
-        scrolled
-          ? ['bg-[color:var(--background)]/90 backdrop-blur']
-          : ['bg-transparent'],
+        scrolled ? ['bg-[color:var(--background)]/90 backdrop-blur'] : ['bg-transparent'],
       )}
     >
       <div
         className={clsx(
           ['border-b transition-colors duration-300'],
-          scrolled
-            ? ['border-zinc-200 dark:border-zinc-800']
-            : ['border-transparent'],
+          scrolled ? ['border-zinc-200 dark:border-zinc-800'] : ['border-transparent'],
         )}
       >
         <div
@@ -50,9 +46,9 @@ function Header() {
           >
             <span className={clsx(['relative flex size-2'])} aria-hidden="true">
               <span
-                className={clsx(
-                  ['absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400'],
-                )}
+                className={clsx([
+                  'absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400',
+                ])}
               />
               <span className={clsx(['relative inline-flex size-2 rounded-full bg-emerald-500'])} />
             </span>

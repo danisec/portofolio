@@ -92,8 +92,7 @@ function Showcase() {
               onClick={() => setActiveShowcaseId(showcase.id)}
               aria-haspopup="dialog"
               aria-label={`Open project ${showcase.title}`}
-              data-aos="fade-up"
-              data-aos-delay={index * 50}
+              data-reveal="up"
             >
               <div
                 className={clsx(

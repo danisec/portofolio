@@ -15,15 +15,10 @@ export default function Hero() {
             ['lg:grid-cols-[minmax(0,44rem)_minmax(0,22rem)]'],
           )}
         >
-          <div
-            className={clsx(
-              ['order-1 space-y-5 lg:order-1'],
-              ['max-w-3xl'],
-            )}
-            data-aos="fade-up"
-            data-aos-delay="30"
-          >
-            <p className={clsx(['section-eyebrow'])}>Available for full-time and freelance projects</p>
+          <div className={clsx(['order-1 space-y-5 lg:order-1'], ['max-w-3xl'])}>
+            <p className={clsx(['section-eyebrow'])}>
+              Available for full-time and freelance projects
+            </p>
             <h1 className={clsx(['text-3xl font-semibold text-balance md:text-4xl lg:text-5xl'])}>
               {data.headline}
             </h1>
@@ -33,7 +28,9 @@ export default function Hero() {
               {data.proofPoints.map((item) => (
                 <li key={item} className={clsx(['flex items-start gap-2 text-sm lg:text-base'])}>
                   <span
-                    className={clsx(['mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400'])}
+                    className={clsx([
+                      'mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400',
+                    ])}
                     aria-hidden="true"
                   />
                   <span>{item}</span>
@@ -46,15 +43,17 @@ export default function Hero() {
 
           <div
             className={clsx(
-              ['order-2 card-surface lg:order-2'],
+              ['card-surface order-2 lg:order-2'],
               ['overflow-hidden'],
               ['p-4 sm:p-5'],
-              ['w-full max-w-sm mx-auto lg:justify-self-end'],
+              ['mx-auto w-full max-w-sm lg:justify-self-end'],
             )}
-            data-aos="zoom-in"
-            data-aos-delay="5"
           >
-            <div className={clsx(['relative aspect-square overflow-hidden rounded-xl bg-neutral-900 dark:bg-neutral-950'])}>
+            <div
+              className={clsx([
+                'relative aspect-square overflow-hidden rounded-xl bg-neutral-900 dark:bg-neutral-950',
+              ])}
+            >
               <Image
                 src={data.image}
                 alt={data.alt}
@@ -62,7 +61,7 @@ export default function Hero() {
                 height={1254}
                 sizes="(min-width: 1024px) 352px, 384px"
                 priority={true}
-                quality={95}
+                quality={85}
                 className={clsx(['h-full w-full object-cover object-top'])}
               />
             </div>
@@ -76,7 +75,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className={clsx(['mt-8'])} data-aos="fade-up" data-aos-delay="120">
+        <div className={clsx(['mt-8'])} data-reveal="up">
           <TechStack />
         </div>
       </div>

@@ -2,29 +2,36 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import LinkedInIcon from '@/components/atoms/svg/LinkedIn';
 import GithubIcon from '@/components/atoms/svg/Github';
+import DocumentIcon from '@/components/atoms/svg/Document';
 
-interface LinkAsideProps {
-  compact?: boolean;
-}
-
-function LinkAside({ compact = false }: LinkAsideProps) {
+function LinkAside() {
   const links: {
     href: string;
     icon: React.ReactNode;
     label: string;
     helper: string;
+    external: boolean;
   }[] = [
     {
       href: 'https://www.linkedin.com/in/dani-aprilyanto',
       icon: <LinkedInIcon $className="h-5 w-5 dark:text-white fill-current" />,
       label: 'LinkedIn',
       helper: 'Profile',
+      external: true,
     },
     {
       href: 'https://github.com/danisec',
       icon: <GithubIcon $className="h-5 w-5 dark:text-white fill-current" />,
       label: 'GitHub',
       helper: 'Code & experiments',
+      external: true,
+    },
+    {
+      href: '/resume',
+      icon: <DocumentIcon $className="h-5 w-5 dark:text-white stroke-current" />,
+      label: 'Resume',
+      helper: 'Full experience',
+      external: false,
     },
   ];
 
@@ -34,29 +41,26 @@ function LinkAside({ compact = false }: LinkAsideProps) {
         <Link
           key={link.href}
           href={link.href}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={link.label}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noreferrer' : undefined}
           className={clsx(
-            compact
-              ? ['inline-flex items-center justify-center rounded-xl border border-slate-300 p-2']
-              : [
-                  'flex items-center gap-3 rounded-xl border border-slate-300 p-3 dark:border-neutral-700',
-                ],
+            [
+              'flex items-center gap-3 rounded-xl border border-slate-300 p-3 dark:border-neutral-700',
+            ],
             ['bg-slate-100 dark:bg-neutral-800/80'],
             ['transition-colors ease-in-out'],
             ['hover:bg-slate-200 dark:hover:bg-neutral-800'],
           )}
         >
-          <span className={clsx(['shrink-0'])}>{link.icon}</span>
-          {!compact && (
-            <span className={clsx(['flex min-w-0 flex-col'])}>
-              <span className={clsx(['text-sm font-semibold'])}>{link.label}</span>
-              <span className={clsx(['text-xs text-slate-600 dark:text-neutral-400'])}>
-                {link.helper}
-              </span>
+          <span className={clsx(['shrink-0'])} aria-hidden="true">
+            {link.icon}
+          </span>
+          <span className={clsx(['flex min-w-0 flex-col'])}>
+            <span className={clsx(['text-sm font-semibold'])}>{link.label}</span>
+            <span className={clsx(['text-xs text-slate-600 dark:text-neutral-400'])}>
+              {link.helper}
             </span>
-          )}
+          </span>
         </Link>
       ))}
     </>

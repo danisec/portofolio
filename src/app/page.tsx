@@ -1,26 +1,10 @@
-'use client';
-
-import { useEffect } from 'react';
 import clsx from 'clsx';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import HomePage from '@/app/home';
 import Navbar from '@/components/organisms/Navbar';
 import NavbarMobile from '@/components/organisms/NavbarMobile';
 import Aside from '@/components/organisms/Aside';
 
 export default function Page() {
-  useEffect(() => {
-    const shouldReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    AOS.init({
-      once: true,
-      duration: shouldReduceMotion ? 0 : 450,
-      easing: 'ease-out-cubic',
-      disable: shouldReduceMotion,
-    });
-  }, []);
-
   return (
     <div
       className={clsx(
@@ -37,7 +21,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className={clsx(['min-w-0 w-full'])}>
+      <div className={clsx(['w-full min-w-0'])}>
         <HomePage />
         <NavbarMobile />
       </div>

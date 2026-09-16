@@ -42,16 +42,15 @@ function Stack() {
         </div>
 
         <div className={clsx(['space-y-8'])}>
-          {Object.entries(groupedStacks).map(([category, items], categoryIndex) => (
+          {Object.entries(groupedStacks).map(([category, items]) => (
             <div key={category} className={clsx(['space-y-4'])}>
               <h3 className={clsx(['text-lg font-semibold'])}>{category}</h3>
               <div className={clsx(['grid gap-4 md:grid-cols-2 xl:grid-cols-3'])}>
-                {items.map((stack, index) => (
+                {items.map((stack) => (
                   <article
                     key={stack.id}
                     className={clsx(['card-surface flex h-full flex-col gap-3 p-4'])}
-                    data-aos="fade-up"
-                    data-aos-delay={(categoryIndex * 3 + index) * 40}
+                    data-reveal="up"
                   >
                     <div className={clsx(['flex items-center gap-3'])}>
                       <div

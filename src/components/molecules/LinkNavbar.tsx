@@ -10,7 +10,10 @@ import GraduationIcon from '@/components/atoms/svg/Graduation';
 import RocketIcon from '@/components/atoms/svg/Rocket';
 import CommandIcon from '@/components/atoms/svg/Command';
 import CpuIcon from '@/components/atoms/svg/Cpu';
-import DocumentIcon from '@/components/atoms/svg/Document';
+import useElementVisible from '@/hooks/useElementVisible';
+import useScrollSpy from '@/hooks/useScrollSpy';
+
+const SECTION_IDS = ['hero', 'experience', 'education', 'showcase', 'my-stack', 'my-services'];
 
 interface LinkNavbarProps {
   variant?: 'desktop' | 'mobile';
@@ -19,55 +22,20 @@ interface LinkNavbarProps {
 function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
   const pathname = usePathname();
   const isHome = pathname === '/' || pathname === '';
-  const [activeSection, setActiveSection] = useState('');
   const listRef = useRef<HTMLDivElement | null>(null);
   const [indicator, setIndicator] = useState<{ start: number; size: number } | null>(null);
 
-  useEffect(() => {
-    if (!isHome) {
-      setActiveSection('');
-      setIndicator(null);
-      return;
-    }
+  const isVisible = useElementVisible(listRef);
 
-    const links = ['hero', 'experience', 'education', 'showcase', 'my-stack', 'my-services'];
-
-    const onScroll = () => {
-      const sections = links
-        .map((sectionId) => document.getElementById(sectionId))
-        .filter((section): section is HTMLElement => section !== null);
-
-      if (!sections.length) {
-        setActiveSection('');
-        return;
-      }
-
-      const scrollPosition = window.scrollY + window.innerHeight * 0.3;
-      const atBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-
-      let currentSection = atBottom ? sections[sections.length - 1].id : sections[0].id;
-
-      if (!atBottom) {
-        for (const section of sections) {
-          if (scrollPosition >= section.offsetTop) {
-            currentSection = section.id;
-          }
-        }
-      }
-
-      setActiveSection(currentSection);
-    };
-
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [isHome]);
+  const activeSection = useScrollSpy({
+    sectionIds: SECTION_IDS,
+    enabled: isHome,
+  });
 
   useEffect(() => {
     const updateIndicator = () => {
       const container = listRef.current;
-      if (!isHome || !container || !activeSection) {
+      if (!isHome || !isVisible || !container || !activeSection) {
         setIndicator(null);
         return;
       }
@@ -88,63 +56,49 @@ function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
     updateIndicator();
     window.addEventListener('resize', updateIndicator);
     return () => window.removeEventListener('resize', updateIndicator);
-  }, [activeSection, variant, isHome]);
+  }, [activeSection, variant, isHome, isVisible]);
 
   const links: {
     href: string;
     icon: React.ReactNode;
     section: string;
     label: string;
-    route: boolean;
   }[] = [
     {
       href: '/#hero',
       icon: <HomeIcon $className="h-5 w-5 dark:text-white fill-current" />,
       section: 'hero',
       label: 'Overview',
-      route: false,
     },
     {
       href: '/#experience',
       icon: <BriefcaseIcon $className="h-5 w-5 dark:text-white stroke-current" />,
       section: 'experience',
       label: 'Experience',
-      route: false,
     },
     {
       href: '/#education',
       icon: <GraduationIcon $className="h-5 w-5 dark:text-white fill-current" />,
       section: 'education',
       label: 'Education',
-      route: false,
     },
     {
       href: '/#showcase',
       icon: <RocketIcon $className="h-5 w-5 dark:text-white stroke-current" />,
       section: 'showcase',
       label: 'Projects',
-      route: false,
     },
     {
       href: '/#my-stack',
       icon: <CommandIcon $className="h-5 w-5 dark:text-white stroke-current" />,
       section: 'my-stack',
       label: 'Stack',
-      route: false,
     },
     {
       href: '/#my-services',
       icon: <CpuIcon $className="h-5 w-5 dark:text-white stroke-current" />,
       section: 'my-services',
       label: 'Services',
-      route: false,
-    },
-    {
-      href: '/resume',
-      icon: <DocumentIcon $className="h-5 w-5 dark:text-white stroke-current" />,
-      section: 'resume',
-      label: 'Resume',
-      route: true,
     },
   ];
 
@@ -181,9 +135,7 @@ function LinkNavbar({ variant = 'desktop' }: LinkNavbarProps) {
       )}
 
       {links.map((link) => {
-        const isActive = link.route
-          ? pathname === link.href
-          : isHome && activeSection === link.section;
+        const isActive = isHome && activeSection === link.section;
 
         return (
           <Link

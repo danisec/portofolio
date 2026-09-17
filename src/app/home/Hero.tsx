@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import clsx from 'clsx';
-import ButtonHero from './components/ButtonHero';
+import HeroActions from './components/HeroActions';
 import TechStack from './components/TechStack';
 import data from '@/data/hero';
 
@@ -10,16 +10,22 @@ export default function Hero() {
       <div className={clsx(['section-shell py-10 lg:py-14'])}>
         <div
           className={clsx(
-            ['mx-auto grid max-w-6xl gap-8'],
+            ['mx-auto grid gap-8'],
             ['items-start'],
-            ['lg:grid-cols-[minmax(0,44rem)_minmax(0,22rem)]'],
+            ['2xl:grid-cols-[minmax(0,1fr)_22rem]'],
           )}
         >
-          <div className={clsx(['order-1 space-y-5 lg:order-1'], ['max-w-3xl'])}>
+          <div className={clsx(['order-1 space-y-5'])}>
             <p className={clsx(['section-eyebrow'])}>
               Available for full-time and freelance projects
             </p>
-            <h1 className={clsx(['text-3xl font-semibold text-balance md:text-4xl lg:text-5xl'])}>
+            <h1
+              className={clsx([
+                'text-3xl font-semibold text-balance',
+                'md:text-4xl',
+                '2xl:text-5xl',
+              ])}
+            >
               {data.headline}
             </h1>
             <p className={clsx(['section-description text-lg'])}>{data.subheadline}</p>
@@ -38,15 +44,15 @@ export default function Hero() {
               ))}
             </ul>
 
-            <ButtonHero />
+            <HeroActions />
           </div>
 
           <div
             className={clsx(
-              ['card-surface order-2 lg:order-2'],
+              ['card-surface order-2'],
               ['overflow-hidden'],
               ['p-4 sm:p-5'],
-              ['mx-auto w-full max-w-sm lg:justify-self-end'],
+              ['mx-auto w-full max-w-sm 2xl:mx-0 2xl:max-w-none'],
             )}
           >
             <div
@@ -59,7 +65,7 @@ export default function Hero() {
                 alt={data.alt}
                 width={1254}
                 height={1254}
-                sizes="(min-width: 1024px) 352px, 384px"
+                sizes="(min-width: 1536px) 312px, 344px"
                 priority={true}
                 quality={85}
                 className={clsx(['h-full w-full object-cover object-top'])}

@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
-import clsx from 'clsx';
 import ResumePage from './index';
-import Navbar from '@/components/organisms/Navbar';
-import NavbarMobile from '@/components/organisms/NavbarMobile';
-import Aside from '@/components/organisms/Aside';
+import SiteShell from '@/components/organisms/SiteShell';
 import { JsonLd } from '@/components/atoms/JsonLd';
 import { breadcrumbSchema } from '@/lib/structured-data';
 
@@ -40,38 +37,15 @@ export const metadata: Metadata = {
 
 function page() {
   return (
-    <div
-      className={clsx(
-        ['row-auto'],
-        ['mx-auto'],
-        ['w-full'],
-        ['xl:grid xl:grid-cols-[13rem_minmax(0,1fr)_13rem]'],
-        ['items-start'],
-      )}
-    >
+    <SiteShell>
       <JsonLd
         data={breadcrumbSchema([
           { name: 'Home', url: '/' },
           { name: 'Resume', url: '/resume' },
         ])}
       />
-      <div className={clsx(['sticky top-0'], ['hidden h-dvh xl:block'])}>
-        <div className={clsx(['h-full border-r border-zinc-200 dark:border-zinc-800'])}>
-          <Navbar />
-        </div>
-      </div>
-
-      <div className={clsx(['w-full min-w-0'])}>
-        <ResumePage />
-        <NavbarMobile />
-      </div>
-
-      <div className={clsx(['sticky top-0'], ['hidden h-dvh xl:block'])}>
-        <div className={clsx(['h-full border-l border-zinc-200 dark:border-zinc-800'])}>
-          <Aside />
-        </div>
-      </div>
-    </div>
+      <ResumePage />
+    </SiteShell>
   );
 }
 

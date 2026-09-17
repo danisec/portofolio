@@ -41,7 +41,7 @@ function NavbarMobile() {
   return (
     <nav
       className={clsx(
-        ['fixed right-0 bottom-0 left-0 z-50 block xl:hidden'],
+        ['fixed right-0 bottom-0 left-0 z-50 block 2xl:hidden'],
         ['border-t border-slate-200 bg-white/90 backdrop-blur-md'],
         ['dark:border-neutral-800 dark:bg-neutral-950/90'],
         ['transition-transform duration-300'],

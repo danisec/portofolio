@@ -2,7 +2,6 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import LinkedInIcon from '@/components/atoms/svg/LinkedIn';
 import GithubIcon from '@/components/atoms/svg/Github';
-import DocumentIcon from '@/components/atoms/svg/Document';
 
 function LinkAside() {
   const links: {
@@ -10,28 +9,18 @@ function LinkAside() {
     icon: React.ReactNode;
     label: string;
     helper: string;
-    external: boolean;
   }[] = [
     {
       href: 'https://www.linkedin.com/in/dani-aprilyanto',
       icon: <LinkedInIcon $className="h-5 w-5 dark:text-white fill-current" />,
       label: 'LinkedIn',
       helper: 'Profile',
-      external: true,
     },
     {
       href: 'https://github.com/danisec',
       icon: <GithubIcon $className="h-5 w-5 dark:text-white fill-current" />,
       label: 'GitHub',
       helper: 'Code & experiments',
-      external: true,
-    },
-    {
-      href: '/resume',
-      icon: <DocumentIcon $className="h-5 w-5 dark:text-white stroke-current" />,
-      label: 'Resume',
-      helper: 'Full experience',
-      external: false,
     },
   ];
 
@@ -41,8 +30,8 @@ function LinkAside() {
         <Link
           key={link.href}
           href={link.href}
-          target={link.external ? '_blank' : undefined}
-          rel={link.external ? 'noreferrer' : undefined}
+          target="_blank"
+          rel="noreferrer"
           className={clsx(
             [
               'flex items-center gap-3 rounded-xl border border-slate-300 p-3 dark:border-neutral-700',

@@ -18,7 +18,7 @@ function LinkedIn({
         className={$className}
         width={$width}
         height={$height}
-        fill="#000"
+        fill="currentColor"
         version="1.1"
         viewBox="0 0 310 310"
       >

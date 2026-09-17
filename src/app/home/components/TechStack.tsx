@@ -89,7 +89,7 @@ function TechStack() {
             ['flex w-max gap-6 pr-6'],
           )}
         >
-          {[...techStacks, ...techStacks].map((stack, index) => (
+          {[...techStacks, ...techStacks, ...techStacks, ...techStacks].map((stack, index) => (
             <div
               key={`${stack.name}-${index}`}
               className={clsx(['flex shrink-0 items-center gap-2 text-sm font-semibold'])}

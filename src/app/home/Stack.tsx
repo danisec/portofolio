@@ -24,8 +24,6 @@ function Stack() {
     return acc;
   }, {});
 
-  if (!mounted) return null;
-
   return (
     <section id="my-stack" className={clsx(['border-b border-zinc-200 dark:border-zinc-800'])}>
       <div className={clsx(['section-shell py-10 lg:py-12'])}>
@@ -41,37 +39,39 @@ function Stack() {
           </p>
         </div>
 
-        <div className={clsx(['space-y-8'])}>
-          {Object.entries(groupedStacks).map(([category, items]) => (
-            <div key={category} className={clsx(['space-y-4'])}>
-              <h3 className={clsx(['text-lg font-semibold'])}>{category}</h3>
-              <div className={clsx(['grid gap-4 md:grid-cols-2 xl:grid-cols-3'])}>
-                {items.map((stack) => (
-                  <article
-                    key={stack.id}
-                    className={clsx(['card-surface flex h-full flex-col gap-3 p-4'])}
-                    data-reveal="up"
-                  >
-                    <div className={clsx(['flex items-center gap-3'])}>
-                      <div
-                        className={clsx(
-                          ['flex items-center justify-center rounded-lg bg-white p-2'],
-                          ['dark:bg-neutral-800'],
-                        )}
-                      >
-                        {stack.icon}
+        {mounted && (
+          <div className={clsx(['space-y-8'])}>
+            {Object.entries(groupedStacks).map(([category, items]) => (
+              <div key={category} className={clsx(['space-y-4'])}>
+                <h3 className={clsx(['text-lg font-semibold'])}>{category}</h3>
+                <div className={clsx(['grid gap-4 md:grid-cols-2 xl:grid-cols-3'])}>
+                  {items.map((stack) => (
+                    <article
+                      key={stack.id}
+                      className={clsx(['card-surface flex h-full flex-col gap-3 p-4'])}
+                      data-reveal="up"
+                    >
+                      <div className={clsx(['flex items-center gap-3'])}>
+                        <div
+                          className={clsx(
+                            ['flex items-center justify-center rounded-lg bg-white p-2'],
+                            ['dark:bg-neutral-800'],
+                          )}
+                        >
+                          {stack.icon}
+                        </div>
+                        <p className={clsx(['text-base font-semibold'])}>{stack.name}</p>
                       </div>
-                      <p className={clsx(['text-base font-semibold'])}>{stack.name}</p>
-                    </div>
-                    <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
-                      {stack.description}
-                    </p>
-                  </article>
-                ))}
+                      <p className={clsx(['text-sm text-slate-700 dark:text-neutral-300'])}>
+                        {stack.description}
+                      </p>
+                    </article>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

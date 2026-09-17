@@ -12,10 +12,10 @@ export default function Hero() {
           className={clsx(
             ['mx-auto grid gap-8'],
             ['items-start'],
-            ['2xl:grid-cols-[minmax(0,1fr)_22rem]'],
+            ['xl:grid-cols-[minmax(0,1fr)_22rem]'],
           )}
         >
-          <div className={clsx(['order-1 space-y-5'])}>
+          <div className={clsx(['order-1 space-y-5'], ['max-w-3xl'])}>
             <p className={clsx(['section-eyebrow'])}>
               Available for full-time and freelance projects
             </p>
@@ -23,7 +23,7 @@ export default function Hero() {
               className={clsx([
                 'text-3xl font-semibold text-balance',
                 'md:text-4xl',
-                '2xl:text-5xl',
+                'xl:text-5xl',
               ])}
             >
               {data.headline}
@@ -52,7 +52,7 @@ export default function Hero() {
               ['card-surface order-2'],
               ['overflow-hidden'],
               ['p-4 sm:p-5'],
-              ['mx-auto w-full max-w-sm 2xl:mx-0 2xl:max-w-none'],
+              ['mx-auto w-full max-w-sm xl:mx-0 xl:max-w-none'],
             )}
           >
             <div
@@ -65,7 +65,7 @@ export default function Hero() {
                 alt={data.alt}
                 width={1254}
                 height={1254}
-                sizes="(min-width: 1536px) 312px, 344px"
+                sizes="(min-width: 1280px) 312px, 344px"
                 priority={true}
                 quality={85}
                 className={clsx(['h-full w-full object-cover object-top'])}
